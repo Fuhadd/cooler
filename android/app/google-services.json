@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1087411400971",
+    "project_id": "coworkpay",
+    "storage_bucket": "coworkpay.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087411400971:android:be2ae10b71f18e3fe1b20e",
+        "android_client_info": {
+          "package_name": "com.urbanHive.cooler"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087411400971-nli8nrgo2sjjk6fae8osrsggdkr0ng92.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCo_KpcLDdXMllGrH04MSNfeTzKRWp_zDI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1087411400971-nli8nrgo2sjjk6fae8osrsggdkr0ng92.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1087411400971-8e35q83ch174mi6ua0ftha7lsl7928ea.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.urbanHive.cooler"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
