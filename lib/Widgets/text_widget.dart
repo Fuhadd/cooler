@@ -8,7 +8,7 @@ Widget FormHeader(String name) {
     child: Text(
       name,
       style: const TextStyle(
-          fontSize: 18, color: kMainColor, fontWeight: FontWeight.bold),
+          fontSize: 18, color: kMainColor, fontWeight: FontWeight.w500),
     ),
   );
 }

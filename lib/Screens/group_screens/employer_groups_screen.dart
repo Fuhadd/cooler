@@ -133,7 +133,7 @@ class _EmployerGroupsScreenState extends State<EmployerGroupsScreen> {
     var screenHeight = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
-        bottomNavigationBar: buildBottomNavigationBar(_selectedIndex),
+        // bottomNavigationBar: buildBottomNavigationBar(_selectedIndex),
         appBar: AppBar(
           iconTheme: const IconThemeData(color: kMainColor),
           // leading: IconButton(

@@ -81,7 +81,7 @@ class _JoinGroupScreenState extends State<JoinGroupScreen> {
     var screenHeight = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
-        bottomNavigationBar: buildBottomNavigationBar(_selectedIndex),
+        // bottomNavigationBar: buildBottomNavigationBar(_selectedIndex),
         appBar: AppBar(
           backgroundColor: background,
           centerTitle: true,

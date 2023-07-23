@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cooler/Widgets/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,7 +9,6 @@ import '../../Blocs/signup_bloc/signup_bloc.dart';
 import '../../Helpers/colors.dart';
 import '../../Helpers/constants.dart';
 import '../../Widgets/gesture_detector_widget.dart';
-import '../welcome_screen.dart';
 import './login_screen.dart';
 
 enum SignUpType { email, google }
@@ -56,14 +56,20 @@ class _CreateScreenState extends State<CreateScreen> {
     setState(() {
       _loading = true;
     });
-    final imagePicked =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+    try {
+      final imagePicked =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
 
-    if (imagePicked != null) {
-      return imagePicked.path;
-    } else {
-      return null;
+      if (imagePicked != null) {
+        return imagePicked.path;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print("this is it --->");
+      print(e.toString());
     }
+    return null;
   }
 
   void signUpUser(
@@ -95,7 +101,7 @@ class _CreateScreenState extends State<CreateScreen> {
       child: Form(
         key: _formKey,
         child: Scaffold(
-          backgroundColor: kBlueColor,
+          backgroundColor: background,
           body: SingleChildScrollView(
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -109,7 +115,7 @@ class _CreateScreenState extends State<CreateScreen> {
                         'Create Account',
                         style: TextStyle(
                           fontSize: 30.0,
-                          color: kMainColor,
+                          color: Colors.black,
                         ),
                       ),
                     ),
@@ -143,6 +149,7 @@ class _CreateScreenState extends State<CreateScreen> {
                                   child: IconButton(
                                       icon: const Icon(Icons.image),
                                       onPressed: () async {
+                                        print(1);
                                         var imagePath = await onPickImage();
                                         setState(() {
                                           _loading = false;
@@ -181,17 +188,17 @@ class _CreateScreenState extends State<CreateScreen> {
                                 ),
                               ),
                   ),
-                  
+
                   verticalSpacer(25),
                   Row(
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'First Name',
-                            style: TextStyle(color: kTextColor, fontSize: 16),
-                          ),
+                          // const Text(
+                          //   'First Name',
+                          //   style: TextStyle(color: kTextColor, fontSize: 16),
+                          // ),
                           const SizedBox(height: 5),
                           SizedBox(
                             height: 50,
@@ -223,10 +230,10 @@ class _CreateScreenState extends State<CreateScreen> {
                       Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'Last Name',
-                              style: TextStyle(color: kTextColor, fontSize: 16),
-                            ),
+                            // const Text(
+                            //   'Last Name',
+                            //   style: TextStyle(color: kTextColor, fontSize: 16),
+                            // ),
                             const SizedBox(height: 5),
                             Container(
                               width: 150,
@@ -260,10 +267,10 @@ class _CreateScreenState extends State<CreateScreen> {
                   ),
 
                   const SizedBox(height: 25),
-                  const Text(
-                    'Email Address',
-                    style: TextStyle(color: kTextColor, fontSize: 16),
-                  ),
+                  // const Text(
+                  //   'Email Address',
+                  //   style: TextStyle(color: kTextColor, fontSize: 16),
+                  // ),
 
                   const SizedBox(height: 5),
                   SizedBox(
@@ -288,10 +295,10 @@ class _CreateScreenState extends State<CreateScreen> {
                     ),
                   ),
                   const SizedBox(height: 25),
-                  const Text(
-                    'Employer Number',
-                    style: TextStyle(color: kTextColor, fontSize: 16),
-                  ),
+                  // const Text(
+                  //   'Employer Number',
+                  //   style: TextStyle(color: kTextColor, fontSize: 16),
+                  // ),
 
                   const SizedBox(height: 5),
                   SizedBox(
@@ -342,10 +349,10 @@ class _CreateScreenState extends State<CreateScreen> {
                   // ),
 
                   const SizedBox(height: 25),
-                  const Text(
-                    'Password',
-                    style: TextStyle(color: kTextColor, fontSize: 16),
-                  ),
+                  // const Text(
+                  //   'Password',
+                  //   style: TextStyle(color: kTextColor, fontSize: 16),
+                  // ),
                   const SizedBox(height: 5),
                   SizedBox(
                     height: 50,
@@ -380,10 +387,10 @@ class _CreateScreenState extends State<CreateScreen> {
                     ),
                   ),
                   const SizedBox(height: 25),
-                  const Text(
-                    'Confirm Password',
-                    style: TextStyle(color: kTextColor, fontSize: 16),
-                  ),
+                  // const Text(
+                  //   'Confirm Password',
+                  //   style: TextStyle(color: kTextColor, fontSize: 16),
+                  // ),
                   const SizedBox(height: 5),
                   SizedBox(
                     height: 50,
@@ -478,7 +485,7 @@ class _CreateScreenState extends State<CreateScreen> {
                     listener: (context, state) {
                       if (state is SignupSuccessful) {
                         Navigator.pushReplacementNamed(
-                            context, WelcomeScreen.routeName);
+                            context, DashboardScreen.routeName);
                       }
                     },
                     child: BlocBuilder<SignupBloc, SignupState>(

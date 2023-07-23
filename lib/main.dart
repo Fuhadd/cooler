@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'Blocs/auth_bloc/auth_bloc.dart';
 import 'Blocs/group_bloc/groups_bloc.dart';
@@ -32,6 +33,7 @@ import 'Screens/wallet_screens/wallet_home_screen.dart';
 import 'Screens/wallet_screens/wallet_transfer_screen.dart';
 import 'Screens/wallet_screens/wallet_withdraw_screen.dart';
 import 'Screens/welcome_screen.dart';
+import 'Widgets/bottom_navigation_bar.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -39,7 +41,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -90,13 +92,13 @@ class MyApp extends StatelessWidget {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const SplashScreen();
                 } else if (snapshot.hasData) {
-                  return const WelcomeScreen();
+                  return const DashboardScreen();
                 } else {
                   return const LoginScreen();
                 }
               }),
 
-          // home: const ContributeScreen(),
+          // home: const DashboardScreen(),
           routes: {
             // HomeScreen.routeName: (context) => const HomeScreen(),
             ForgotPasswordScreen.routeName: (context) =>
@@ -128,6 +130,8 @@ class MyApp extends StatelessWidget {
             PrivateCoolerScreen.routeName: (context) =>
                 const PrivateCoolerScreen(),
             MyGroupsScreen.routeName: (context) => const MyGroupsScreen(),
+
+            DashboardScreen.routeName: (context) => const DashboardScreen(),
           },
         ),
       ),

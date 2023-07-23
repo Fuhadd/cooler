@@ -130,7 +130,7 @@ class _MyGroupsScreenState extends State<MyGroupsScreen> {
     var screenHeight = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
-        bottomNavigationBar: buildBottomNavigationBar(_selectedIndex),
+        // bottomNavigationBar: buildBottomNavigationBar(_selectedIndex),
         appBar: AppBar(
           iconTheme: const IconThemeData(color: kMainColor),
           // leading: IconButton(
@@ -138,10 +138,11 @@ class _MyGroupsScreenState extends State<MyGroupsScreen> {
           //   onPressed: () => Navigator.of(context)
           //       .pushReplacementNamed(WelcomeScreen.routeName),
           // ),
+          elevation: 0,
           backgroundColor: background,
           centerTitle: true,
           title: const Text(
-            'MY COOLERS',
+            'My Coolers',
             style: TextStyle(
                 fontSize: 21, color: kMainColor, fontWeight: FontWeight.bold),
           ),
@@ -345,52 +346,52 @@ class MyGroupScreenEmpty extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          const EdgeInsets.only(left: 30, right: 30.0, top: 50, bottom: 30),
+      padding: const EdgeInsets.only(top: 10, bottom: 30),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
             children: [
-              CustomTextField(
-                name: 'groupPin',
-                hint: 'SEARCH',
-                isdigit: false,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: CustomRowTextField(
+                  name: 'groupPin',
+                  hint: 'SEARCH',
+                  isdigit: false,
+                ),
               ),
             ],
           ),
           verticalSpacer(40),
           Expanded(
-            child: Card(
-              elevation: 10,
-              child: Container(
-                height: 75,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(5),
-                    boxShadow: [
-                      BoxShadow(
-                          spreadRadius: 1,
-                          blurRadius: 1,
-                          offset: const Offset(0, 1),
-                          color: kShadowColor),
-                    ],
-                    border: Border.all(color: kBoxBackground, width: 0.8)),
-                child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Center(
-                      child: Text(
-                        'COOLERS YOU HAVE JOINED WILL APPEAR HERE',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Color(0xFF2B2E4A),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                    )),
+            child: Container(
+              height: 75,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: blueBackground.withOpacity(0.08),
+                // borderRadius: BorderRadius.circular(5),
+                // boxShadow: [
+                //   BoxShadow(
+                //       spreadRadius: 1,
+                //       blurRadius: 1,
+                //       offset: const Offset(0, 1),
+                //       color: kShadowColor),
+                // ],
+                // border: Border.all(color: kBoxBackground, width: 0.8)
               ),
+              child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Center(
+                    child: Text(
+                      'Coolers you’ve joined would appear here.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black.withOpacity(0.7),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20,
+                      ),
+                    ),
+                  )),
             ),
             //     child: Column(
             //   mainAxisAlignment: MainAxisAlignment.center,
@@ -417,44 +418,48 @@ class MyGroupScreenEmpty extends StatelessWidget {
             // )
           ),
           verticalSpacer(40),
-          Column(
-            children: [
-              // GestureDetector(
-              //     onTap: () async {
-              //       Navigator.of(context).pushReplacement(MaterialPageRoute(
-              //           builder: ((context) =>
-              //               MyInviteScreen(currentUser: currentUser))));
-              //     },
-              //     child: const ColouredTextBox(title: 'INVITES')),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 50.0),
+            child: Column(
+              children: [
+                // GestureDetector(
+                //     onTap: () async {
+                //       Navigator.of(context).pushReplacement(MaterialPageRoute(
+                //           builder: ((context) =>
+                //               MyInviteScreen(currentUser: currentUser))));
+                //     },
+                //     child: const ColouredTextBox(title: 'INVITES')),
 
-              Row(
-                children: [
-                  Expanded(
-                      child: GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => EmployerGroupsScreen(
-                                    currentUser: currentUser)));
-                          },
-                          child: const ColouredTextBox(title: 'JOIN'))),
-                  // horizontalSpacer(10),
-                  // Expanded(
-                  //     child: GestureDetector(
-                  //         onTap: () {
-                  //           Navigator.of(context)
-                  //               .pushNamed(CreateGroupScreen.routeName);
-                  //         },
-                  //         child: const ColouredTextBox(title: 'CREATE'))),
-                ],
-              ),
-              GestureDetector(
-                  onTap: () {
-                    Navigator.of(context)
-                        .pushNamed(CreateGroupScreen.routeName);
-                  },
-                  child: const ColouredTextBox(title: 'CREATE')),
-              // verticalSpacer(20),
-            ],
+                Row(
+                  children: [
+                    Expanded(
+                        child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => EmployerGroupsScreen(
+                                      currentUser: currentUser)));
+                            },
+                            child: const ColouredTextBox(title: 'Join'))),
+                    // horizontalSpacer(10),
+                    // Expanded(
+                    //     child: GestureDetector(
+                    //         onTap: () {
+                    //           Navigator.of(context)
+                    //               .pushNamed(CreateGroupScreen.routeName);
+                    //         },
+                    //         child: const ColouredTextBox(title: 'CREATE'))),
+                  ],
+                ),
+                verticalSpacer(10),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushNamed(CreateGroupScreen.routeName);
+                    },
+                    child: const ColouredOutlineTextBox(title: 'Create')),
+                verticalSpacer(20),
+              ],
+            ),
           ),
         ],
       ),

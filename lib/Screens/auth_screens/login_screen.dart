@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../Helpers/colors.dart';
+import '../../Widgets/bottom_navigation_bar.dart';
 import '../../Widgets/gesture_detector_widget.dart';
-import '../welcome_screen.dart';
 import 'create_screen.dart';
 
 enum LoginType { email, google }
@@ -40,12 +40,14 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     //final firebaseProvider = Provider.of<FirebaseAuthentication>(context);
-    var loading = const CircularProgressIndicator();
+    var loading = CircularProgressIndicator(
+      color: white,
+    );
     loginBloc = BlocProvider.of<LoginBloc>(context);
     return Form(
       key: _formKey,
       child: Scaffold(
-        backgroundColor: kBlueColor,
+        backgroundColor: background,
         body: SingleChildScrollView(
           child: AutofillGroup(
             child: Column(
@@ -55,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: EdgeInsets.fromLTRB(32.0, 80.0, 0.0, 100.0),
                   child: Text(
                     'Log In.',
-                    style: TextStyle(fontSize: 40.0, color: Colors.white),
+                    style: TextStyle(fontSize: 40.0, color: Colors.black),
                   ),
                 ),
                 Container(
@@ -63,20 +65,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 32, vertical: 8.0),
                   child: TextFormField(
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.black),
                     controller: _emailController,
                     validator: (input) =>
                         !input!.contains('@') ? 'Enter correct email' : null,
                     onSaved: (input) => email = input!,
                     autofillHints: const [AutofillHints.email],
-                    cursorColor: Colors.white,
-                    decoration: InputDecoration(
-                      labelStyle: const TextStyle(color: Colors.white),
+                    cursorColor: Colors.black,
+                    decoration: const InputDecoration(
+                      labelStyle: TextStyle(color: Colors.black),
                       labelText: "Email",
                       enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey.shade500)),
+                          borderSide: BorderSide(color: Colors.grey)),
                       focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey.shade500)),
+                          borderSide: BorderSide(color: Colors.grey)),
                     ),
                   ),
                 ),
@@ -86,31 +88,31 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 32, vertical: 8.0),
                   child: TextFormField(
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.black),
                     controller: _passwordController,
                     validator: (input) => input!.length < 6
                         ? 'Password must be atleast 6 characters'
                         : null,
                     onSaved: (input) => password = input!,
                     autofillHints: const [AutofillHints.password],
-                    cursorColor: Colors.white,
+                    cursorColor: Colors.black,
                     obscureText: _obscureText,
                     decoration: InputDecoration(
                       suffixIcon: _obscureText
                           ? IconButton(
                               icon: const Icon(Icons.visibility_off,
-                                  color: Colors.white, size: 16),
+                                  color: Colors.black, size: 16),
                               onPressed: _toggle)
                           : IconButton(
                               icon: const Icon(Icons.visibility,
-                                  color: Colors.white, size: 16),
+                                  color: Colors.black, size: 16),
                               onPressed: _toggle),
-                      labelStyle: const TextStyle(color: Colors.white),
+                      labelStyle: const TextStyle(color: Colors.black),
                       labelText: "Password",
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey.shade500)),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey.shade500)),
+                      enabledBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey)),
+                      focusedBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey)),
                     ),
                   ),
                 ),
@@ -119,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: InkWell(
                     child: const Text(
                       'Forget Password',
-                      style: TextStyle(fontSize: 14, color: Colors.white),
+                      style: TextStyle(fontSize: 14, color: Colors.black),
                     ),
                     onTap: () {
                       // Navigator.push(
@@ -135,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   listener: ((context, state) {
                     if (state is LoginSuccessfull) {
                       Navigator.pushReplacementNamed(
-                          context, WelcomeScreen.routeName);
+                          context, DashboardScreen.routeName);
                     }
                   }),
                   child: BlocBuilder<LoginBloc, LoginState>(
@@ -160,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 decoration: const BoxDecoration(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(100)),
-                                  color: Colors.white,
+                                  color: kBlueColor,
                                 ),
                                 child: loading,
                               ),
@@ -194,9 +196,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
 
                     return GestureButtonWidget(
-                        buttonColor: Colors.white,
+                        buttonColor: kBlueColor,
                         text: 'Login',
-                        textColor: const Color(0xFF2C6319),
+                        textColor: Colors.white,
                         onPress: () {
                           if (_formKey.currentState!.validate()) {
                             loginBloc?.add(
@@ -208,7 +210,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         });
                   })),
                 ),
-                
+
                 // _loading
                 //     ?
                 //     :
@@ -267,7 +269,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: InkWell(
                           child: const Text(
                             'New User? Create account',
-                            style: TextStyle(fontSize: 16, color: Colors.white),
+                            style: TextStyle(fontSize: 16, color: Colors.black),
                           ),
                           onTap: () {
                             Navigator.push(

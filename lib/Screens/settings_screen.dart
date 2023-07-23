@@ -132,7 +132,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         // drawer: const CustomNavigationDrawer(
         //   pageIndex: 2,
         // ),
-        bottomNavigationBar: buildBottomNavigationBar(_selectedIndex),
+        // bottomNavigationBar: buildBottomNavigationBar(_selectedIndex),
         appBar: AppBar(
           iconTheme: const IconThemeData(color: kMainColor),
           backgroundColor: background,

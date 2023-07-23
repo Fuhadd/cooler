@@ -77,28 +77,28 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
         BottomNavigationBarItem(
           icon: SmallTextLetterBox(
             isactive: selectedIndex == 0 ? true : false,
-             icon: Icons.home,
+            icon: Icons.home,
           ),
           label: '',
         ),
         BottomNavigationBarItem(
           icon: SmallTextLetterBox(
             isactive: selectedIndex == 1 ? true : false,
-             icon: Icons.group,
+            icon: Icons.group,
           ),
           label: '',
         ),
         BottomNavigationBarItem(
           icon: SmallTextLetterBox(
             isactive: selectedIndex == 2 ? true : false,
-             icon: Icons.wallet,
+            icon: Icons.wallet,
           ),
           label: '',
         ),
         BottomNavigationBarItem(
           icon: SmallTextLetterBox(
             isactive: selectedIndex == 3 ? true : false,
-             icon: Icons.settings,
+            icon: Icons.settings,
           ),
           label: '',
         ),
@@ -126,15 +126,17 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
     var screenHeight = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
-        bottomNavigationBar: buildBottomNavigationBar(_selectedIndex),
+        backgroundColor: background,
+        // bottomNavigationBar: buildBottomNavigationBar(_selectedIndex),
         // bottomNavigationBar: BuildBottomNavigationBar(
         //   selectedIndex: 1,
         // ),
         appBar: AppBar(
+          elevation: 0,
           backgroundColor: background,
           centerTitle: true,
           title: const Text(
-            'CREATE GROUP',
+            'Create Cooler',
             style: TextStyle(
                 fontSize: 21, color: kMainColor, fontWeight: FontWeight.bold),
           ),
@@ -153,80 +155,80 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Center(
-                            child: _loading
-                                ? Container(
-                                    height: 100,
-                                    width: 100,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: Colors.grey,
-                                        width: 1,
-                                      ),
-                                    ),
-                                    child: const Center(
-                                      child: CircularProgressIndicator(),
-                                    ),
-                                  )
-                                : image == null
-                                    ? Container(
-                                        height: 100,
-                                        width: 100,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: Colors.grey,
-                                            width: 1,
-                                          ),
-                                        ),
-                                        child: Center(
-                                          child: IconButton(
-                                              icon: const Icon(Icons.image),
-                                              onPressed: () async {
-                                                var imagePath =
-                                                    await onPickImage();
-                                                setState(() {
-                                                  _loading = false;
-                                                });
-                                                if (imagePath == null) {
-                                                  Future.delayed(Duration.zero,
-                                                      () {
-                                                    ScaffoldMessenger.of(
-                                                        context)
-                                                      ..removeCurrentSnackBar()
-                                                      ..showSnackBar(
-                                                          const SnackBar(
-                                                        content: Text(
-                                                            "Failed to pick an Image"),
-                                                        backgroundColor:
-                                                            Colors.black,
-                                                      ));
-                                                  });
-                                                } else {
-                                                  final tempimage = File(
-                                                      imagePath.toString());
-                                                  setState(() {
-                                                    image = tempimage;
-                                                  });
-                                                }
-                                              }),
-                                        ),
-                                      )
-                                    : Container(
-                                        height: 100,
-                                        width: 100,
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: FileImage(image!),
-                                              fit: BoxFit.cover),
-                                          border: Border.all(
-                                            color: Colors.grey,
-                                            width: 1,
-                                          ),
-                                        ),
-                                      ),
-                          ),
-                          verticalSpacer(25),
-                          FormHeader('NAME:'),
+                          // Center(
+                          //   child: _loading
+                          //       ? Container(
+                          //           height: 100,
+                          //           width: 100,
+                          //           decoration: BoxDecoration(
+                          //             border: Border.all(
+                          //               color: Colors.grey,
+                          //               width: 1,
+                          //             ),
+                          //           ),
+                          //           child: const Center(
+                          //             child: CircularProgressIndicator(),
+                          //           ),
+                          //         )
+                          //       : image == null
+                          //           ? Container(
+                          //               height: 100,
+                          //               width: 100,
+                          //               decoration: BoxDecoration(
+                          //                 border: Border.all(
+                          //                   color: Colors.grey,
+                          //                   width: 1,
+                          //                 ),
+                          //               ),
+                          //               child: Center(
+                          //                 child: IconButton(
+                          //                     icon: const Icon(Icons.image),
+                          //                     onPressed: () async {
+                          //                       var imagePath =
+                          //                           await onPickImage();
+                          //                       setState(() {
+                          //                         _loading = false;
+                          //                       });
+                          //                       if (imagePath == null) {
+                          //                         Future.delayed(Duration.zero,
+                          //                             () {
+                          //                           ScaffoldMessenger.of(
+                          //                               context)
+                          //                             ..removeCurrentSnackBar()
+                          //                             ..showSnackBar(
+                          //                                 const SnackBar(
+                          //                               content: Text(
+                          //                                   "Failed to pick an Image"),
+                          //                               backgroundColor:
+                          //                                   Colors.black,
+                          //                             ));
+                          //                         });
+                          //                       } else {
+                          //                         final tempimage = File(
+                          //                             imagePath.toString());
+                          //                         setState(() {
+                          //                           image = tempimage;
+                          //                         });
+                          //                       }
+                          //                     }),
+                          //               ),
+                          //             )
+                          //           : Container(
+                          //               height: 100,
+                          //               width: 100,
+                          //               decoration: BoxDecoration(
+                          //                 image: DecorationImage(
+                          //                     image: FileImage(image!),
+                          //                     fit: BoxFit.cover),
+                          //                 border: Border.all(
+                          //                   color: Colors.grey,
+                          //                   width: 1,
+                          //                 ),
+                          //               ),
+                          //             ),
+                          // ),
+                          // verticalSpacer(25),
+                          FormHeader('Name'),
                           verticalSpacer(5),
                           // const SmallSingleLeftTextBox(title: 'FEMI SAVERS'),
                           CustomTextField(
@@ -244,7 +246,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                           ),
                           verticalSpacer(15),
 
-                          FormHeader('FEE:'),
+                          FormHeader('Fee'),
                           verticalSpacer(5),
                           CustomTextField(
                             name: 'amount',
@@ -266,7 +268,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                           ),
                           //  SmallSingleLeftTextBox(title: 'N100,000'),
                           verticalSpacer(15),
-                          FormHeader('MAX:'),
+                          FormHeader('Max'),
                           verticalSpacer(5),
                           CustomTextField(
                             name: 'noOfSavers',
@@ -291,7 +293,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                           ),
                           // const SmallSingleLeftTextBox(title: '12'),
                           verticalSpacer(15),
-                          FormHeader('START:'),
+                          FormHeader('Start'),
                           verticalSpacer(5),
                           CustomDateField(
                             name: 'startDate',
@@ -305,7 +307,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                             ),
                           ),
                           verticalSpacer(15),
-                          FormHeader('PAYOUT:'),
+                          FormHeader('Payout'),
                           verticalSpacer(5),
                           CustomDateField(
                             name: 'payoutDate',
@@ -345,7 +347,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                                               });
                                             },
                                           ),
-                                          FormHeader('PUBLIC'),
+                                          FormHeader('Public'),
                                         ],
                                       ),
                                       Row(
@@ -362,7 +364,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                                               });
                                             },
                                           ),
-                                          FormHeader('PRIVATE'),
+                                          FormHeader('Private'),
                                         ],
                                       ),
                                     ],
@@ -374,7 +376,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                           _showContainer == true
                               ? Row(
                                   children: [
-                                    FormHeader('PIN'),
+                                    FormHeader('Pin'),
                                     horizontalSpacer(10),
                                     Expanded(
                                       child: CustomTextField(
@@ -484,7 +486,8 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                                         FocusScope.of(context).unfocus();
                                         var validate =
                                             _formKey.currentState?.validate();
-                                        if (image == null) {
+                                        // if (image == null) {
+                                        if (false) {
                                           validate = false;
                                           Future.delayed(Duration.zero, () {
                                             ScaffoldMessenger.of(context)
@@ -525,7 +528,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                                               ?.fields['startDate']?.value;
                                           if (pin == null) {
                                             groupsBloc?.add(CreateGroupEvent(
-                                              image: image!,
+                                              // image: image!,
                                               status: status,
                                               groupName: groupName!,
                                               amount: amount,
@@ -536,12 +539,13 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                                               memberEmail: currentUser!.email,
                                               memberImageUrl:
                                                   currentUser!.imageUrl,
+
                                               memberName:
                                                   '${currentUser!.lastName} ${currentUser!.firstName}',
                                             ));
                                           } else {
                                             groupsBloc?.add(CreateGroupEvent(
-                                              image: image!,
+                                              // image: image!,
                                               status: status,
                                               groupName: groupName!,
                                               amount: amount,
@@ -576,6 +580,76 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class CustomRowTextField extends StatelessWidget {
+  final String name;
+  final String hint;
+  final bool isdigit;
+  String? Function(String?)? validator;
+  CustomRowTextField({
+    required this.name,
+    required this.hint,
+    required this.isdigit,
+    this.validator,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 3,
+      shadowColor: kMainColor,
+      // color: Colors.amber,
+      child: FormBuilderTextField(
+        name: name,
+        // maxLength: 10,
+
+        validator: validator,
+        keyboardType: isdigit ? TextInputType.number : null,
+        decoration: InputDecoration(
+          suffixIcon: Container(
+            height: 50,
+            width: 80,
+            color: kBlueColor,
+            child: const Center(
+              child: Text(
+                'Search',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  // fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+            ),
+          ),
+          // hintText: hint,
+          // labelText: 'test',
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+            borderSide: const BorderSide(color: kMainColor, width: 1.5),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+            borderSide: const BorderSide(color: kMainColor, width: 1.5),
+          ),
+          disabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+            borderSide: const BorderSide(color: Colors.grey, width: 1.5),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+            borderSide: const BorderSide(color: Colors.grey, width: 1.5),
+          ),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 5),
+          // icon: const Icon(Icons.abc)
+
+          // floatingLabelBehavior: FloatingLabelBehavior.always // for the floatimg label
         ),
       ),
     );

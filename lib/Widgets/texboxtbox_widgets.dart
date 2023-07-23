@@ -88,30 +88,27 @@ class SmallSingleLeftTextBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 10,
-      child: Container(
-        height: 45,
-        width: double.infinity,
-        decoration: BoxDecoration(
-            color: background,
-            borderRadius: BorderRadius.circular(5),
-            boxShadow: [
-              BoxShadow(
-                  spreadRadius: 2,
-                  blurRadius: 2,
-                  offset: const Offset(0, 4),
-                  color: kShadowColor),
-            ],
-            border: Border.all(color: kBoxBackground, width: 0.8)),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 10.0),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              title,
-              style: const TextStyle(fontSize: 18, color: kMainColor),
-            ),
+    return Container(
+      height: 50,
+      width: double.infinity,
+      decoration: BoxDecoration(
+          color: background,
+          borderRadius: BorderRadius.circular(5),
+          boxShadow: [
+            BoxShadow(
+                spreadRadius: 1,
+                blurRadius: 1,
+                offset: const Offset(0, 1),
+                color: kShadowColor),
+          ],
+          border: Border.all(color: kShadowColor, width: 0.8)),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10.0),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            title,
+            style: const TextStyle(fontSize: 18, color: kMainColor),
           ),
         ),
       ),
@@ -220,11 +217,16 @@ class LargeDoubleTextBox extends StatelessWidget {
   const LargeDoubleTextBox({
     required this.text2,
     required this.text1,
+    required this.icon,
+    required this.iconColor,
     Key? key,
   }) : super(key: key);
 
   final String text2;
   final String text1;
+
+  final IconData icon;
+  final Color iconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -234,35 +236,54 @@ class LargeDoubleTextBox extends StatelessWidget {
         height: 65,
         width: double.infinity,
         decoration: BoxDecoration(
-            color: background,
-            borderRadius: BorderRadius.circular(5),
-            boxShadow: [
-              BoxShadow(
-                  spreadRadius: 2,
-                  blurRadius: 2,
-                  offset: const Offset(0, 4),
-                  color: kShadowColor),
-            ],
-            border: Border.all(color: kBoxBackground, width: 0.8)),
+          color: background,
+          borderRadius: BorderRadius.circular(5),
+          boxShadow: [
+            BoxShadow(
+                spreadRadius: 2,
+                blurRadius: 2,
+                offset: const Offset(0, 4),
+                color: kShadowColor),
+          ],
+        ),
         child: Padding(
           padding: const EdgeInsets.only(right: 25.0, left: 25),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                text1,
-                style: const TextStyle(
-                    fontSize: 17,
-                    color: kMainColor,
-                    fontWeight: FontWeight.bold),
+              Center(
+                child: Icon(
+                  icon,
+                  color: iconColor,
+                ),
               ),
-              Text(
-                text2,
-                style: const TextStyle(
-                    fontSize: 19,
-                    color: kMainColor,
-                    fontWeight: FontWeight.bold),
+              Row(
+                children: [
+                  const Text(
+                    "~",
+                    style: TextStyle(
+                        fontSize: 17,
+                        color: kMainColor,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    text1,
+                    style: const TextStyle(
+                        fontSize: 17,
+                        color: kMainColor,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  horizontalSpacer(10),
+                  Text(
+                    text2,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: kMainColor,
+                    ),
+                  ),
+                ],
               ),
+              const SizedBox(),
             ],
           ),
         ),
@@ -342,21 +363,21 @@ class PaymentDoubleTextBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 10,
+      elevation: 5,
       child: Container(
         height: 65,
         width: double.infinity,
         decoration: BoxDecoration(
-            color: background,
-            borderRadius: BorderRadius.circular(5),
-            boxShadow: [
-              BoxShadow(
-                  spreadRadius: 2,
-                  blurRadius: 2,
-                  offset: const Offset(0, 4),
-                  color: kShadowColor),
-            ],
-            border: Border.all(color: kBoxBackground, width: 0.8)),
+          color: background,
+          borderRadius: BorderRadius.circular(5),
+          boxShadow: [
+            BoxShadow(
+                spreadRadius: 2,
+                blurRadius: 2,
+                offset: const Offset(0, 4),
+                color: kShadowColor),
+          ],
+        ),
         child: Padding(
           padding: const EdgeInsets.only(right: 25.0, left: 25),
           child: Row(
@@ -536,9 +557,9 @@ class ColouredTextBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 10,
+      // elevation: 5,
       child: Container(
-        height: 50,
+        height: 60,
         // width: double.infinity,
         decoration: BoxDecoration(
           color: kBlueColor,
@@ -555,8 +576,47 @@ class ColouredTextBox extends StatelessWidget {
         child: Center(
           child: Text(
             title,
+            style: TextStyle(
+                fontSize: 18, color: white, fontWeight: FontWeight.w500),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ColouredOutlineTextBox extends StatelessWidget {
+  const ColouredOutlineTextBox({
+    required this.title,
+    Key? key,
+  }) : super(key: key);
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      // elevation: 5,
+      child: Container(
+        height: 60,
+        // width: double.infinity,
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(5),
+          border: Border.all(color: kBlueColor),
+          boxShadow: [
+            BoxShadow(
+                spreadRadius: 1,
+                blurRadius: 1,
+                offset: const Offset(0, 1),
+                color: kShadowColor),
+          ],
+          // border: Border.all(color: kBoxBackground, width: 0.8)
+        ),
+        child: Center(
+          child: Text(
+            title,
             style: const TextStyle(
-                fontSize: 22, color: kMainColor, fontWeight: FontWeight.bold),
+                fontSize: 18, color: kBlueColor, fontWeight: FontWeight.w500),
           ),
         ),
       ),
@@ -1857,6 +1917,66 @@ class ColumnLargeTextBox extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ColumnTextBox extends StatelessWidget {
+  const ColumnTextBox({
+    required this.text1,
+    required this.text2,
+    Key? key,
+  }) : super(key: key);
+
+  final String text1;
+  final String text2;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        verticalSpacer(30),
+        Text(
+          text1,
+          style: const TextStyle(
+              fontSize: 16, color: kMainColor, fontWeight: FontWeight.bold),
+        ),
+        verticalSpacer(20),
+        Container(
+          // height: 100,
+          // width: double.infinity,
+          width: 200,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(5),
+            boxShadow: [
+              BoxShadow(
+                  spreadRadius: 1,
+                  blurRadius: 1,
+                  offset: const Offset(0, 1),
+                  color: kShadowColor),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 14),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  text2,
+                  style: const TextStyle(
+                      fontSize: 23,
+                      color: kMainColor,
+                      fontWeight: FontWeight.w800),
+                ),
+              ],
+            ),
+          ),
+        ),
+        verticalSpacer(30),
+      ],
     );
   }
 }

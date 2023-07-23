@@ -9,7 +9,7 @@ abstract class GroupsEvent extends Equatable {
 }
 
 class CreateGroupEvent extends GroupsEvent {
-  File image;
+  // File image;
   String status;
   String groupName;
   String memberUserId;
@@ -24,7 +24,8 @@ class CreateGroupEvent extends GroupsEvent {
   String memberName;
 
   CreateGroupEvent(
-      {required this.image,
+      {
+      // required this.image,
       required this.status,
       required this.groupName,
       this.password,

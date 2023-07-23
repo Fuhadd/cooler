@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:cooler/Models/group_model.dart';
@@ -37,7 +36,11 @@ class GroupsBloc extends Bloc<GroupsEvent, GroupsState> {
         event.startDate,
       );
 
-      await firebaseStorageRepository.uploadGroupImage(event.image, groupId);
+      // await firebaseStorageRepository.uploadGroupImage(
+
+      //   // event.image,
+
+      // groupId);
       await firestoreRepository.addMemberToGroup(
           memberUserId: event.memberUserId,
           inviteeUserId: event.inviteeUserId,
