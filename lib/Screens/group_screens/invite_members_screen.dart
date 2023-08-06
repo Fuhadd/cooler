@@ -124,12 +124,13 @@ class _GroupsMembersInviteScreenState extends State<GroupsMembersInviteScreen> {
           iconTheme: const IconThemeData(color: kMainColor),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back, color: kMainColor),
-            onPressed: () =>
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => ViewGroupsMembersScreen(
-                          group: widget.group,
-                          button: 'LEAVE',
-                        ))),
+            onPressed: () {
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => ViewGroupsMembersScreen(
+                        group: widget.group,
+                        button: 'LEAVE',
+                      )));
+            },
           ),
           backgroundColor: background,
           centerTitle: true,
@@ -264,7 +265,6 @@ class GroupsMembersInviteScreenBody extends StatelessWidget {
                                   );
                                 }),
                               );
-                      
                       }
 
                       // Column(

@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.urbanHive.cooler">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="cooler"
         android:name="${applicationName}"

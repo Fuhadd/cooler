@@ -98,9 +98,16 @@ class UserRepository {
         AppUser currentUser = AppUser.fromJson(json.decode(userJson));
         return currentUser;
       }
-      return null;
+
+      UserRepository().logOut();
+      // Navigator.of(context).pushReplacement(
+      //   MaterialPageRoute(
+      //     builder: (context) => const LoginScreen(),
+      //   ),
+      // );
     } on PlatformException catch (error) {
       throw Exception(error);
     }
+    return null;
   }
 }

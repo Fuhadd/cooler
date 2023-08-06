@@ -83,7 +83,7 @@ class _MyGroupsScreenState extends State<MyGroupsScreen> {
     return StreamBuilder(
       stream: myGroups,
       builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-        if (snapshot.hasData) {
+        if (snapshot.hasData && snapshot.data!.data() != null) {
           print(snapshot.data!.data());
           // try {
           //   AppUser userDetails = AppUser.fromJson(snapshot.data!.data());
@@ -115,16 +115,16 @@ class _MyGroupsScreenState extends State<MyGroupsScreen> {
   }
 
   getGroups() async {
-    myGroups = await firestoreRepository.getUserGroups();
+    myGroups = await firestoreRepository.getUserGroups(currentUser!.id!);
     setState(() {});
   }
 
   @override
   void initState() {
-    getGroups();
     UserRepository().fetchCurrentUser().then((value) {
       setState(() {
         currentUser = value;
+        getGroups();
       });
     });
 
@@ -242,7 +242,7 @@ class MyGroupScreenBody extends StatelessWidget {
                                   padding: const EdgeInsets.only(top: 10.0),
                                   child: GestureDetector(
                                     onTap: () {
-                                      Navigator.pushReplacement(
+                                      Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (builder) =>

@@ -135,8 +135,8 @@ class FirestoreRepository {
     return docUser.id.toString();
   }
 
-  Future<Stream<DocumentSnapshot>> getUserGroups() async {
-    String? uid = firebaseAuth.currentUser?.uid.toString();
+  Future<Stream<DocumentSnapshot>> getUserGroups(String currentUserId) async {
+    String? uid = firebaseAuth.currentUser?.uid.toString() ?? currentUserId;
     return employeeFirebaseFirestore.doc(uid.toString()).snapshots();
     // return groupFirebaseFirestore
     //     .where("status", isEqualTo: 'public')
@@ -202,11 +202,12 @@ class FirestoreRepository {
     return;
   }
 
-  Future<void> removeGroupFromUserCredentials(List<String> groupId) async {
-    String? uid = firebaseAuth.currentUser?.uid.toString();
+  Future<void> removeGroupFromUserCredentials(
+      List<String> groupId, String currentUserId) async {
+    String? uid = firebaseAuth.currentUser?.uid.toString() ?? currentUserId;
     await employeeFirebaseFirestore.doc(uid.toString()).update(
       {
-        'groups': FieldValue.arrayRemove(groupId), //.arrayUnion(groupId),
+        'cooler': FieldValue.arrayRemove(groupId), //.arrayUnion(groupId),
       },
     );
 

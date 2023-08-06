@@ -59,6 +59,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               // bottomNavigationBar: buildBottomNavigationBar(_selectedIndex),
               appBar: AppBar(
                 elevation: 0,
+                automaticallyImplyLeading: false,
                 iconTheme: const IconThemeData(color: kMainColor),
                 backgroundColor: background,
                 centerTitle: false,

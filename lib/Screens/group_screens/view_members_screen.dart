@@ -43,14 +43,11 @@ class _ViewGroupMembersScreenState extends State<ViewGroupMembersScreen> {
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-              child: Expanded(
-                child: Lottie.asset(
-                  'assets/images/big_shimmer.json',
-                  height: 100,
-                  width: double.infinity,
-                ),
+            return Center(
+              child: Lottie.asset(
+                'assets/images/big_shimmer.json',
+                height: 100,
+                width: double.infinity,
               ),
             );
           }
@@ -167,6 +164,7 @@ class ViewGroupsMembersScreenBody extends StatelessWidget {
                     ],
                   )
                 : Container(),
+
             verticalSpacer(25),
             Expanded(
               child: SizedBox(
@@ -204,6 +202,7 @@ class ViewGroupsMembersScreenBody extends StatelessWidget {
                     }),
               ),
             ),
+
             verticalSpacer(25),
             button == 'Join'
                 ? BlocListener<GroupsBloc, GroupsState>(
@@ -218,10 +217,9 @@ class ViewGroupsMembersScreenBody extends StatelessWidget {
                               backgroundColor: Colors.black,
                             ));
                         });
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                              builder: (context) => const MyGroupsScreen()),
-                        );
+                        ref.read(indexProvider.notifier).state = 1;
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => const DashboardScreen()));
                       }
                     },
                     child: BlocBuilder<GroupsBloc, GroupsState>(

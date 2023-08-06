@@ -161,7 +161,8 @@ class GroupsBloc extends Bloc<GroupsEvent, GroupsState> {
       emit(LeaveGroupInProgress());
       await firestoreRepository.removeMemberFromGroup(
           event.groupId, event.currentUserId);
-      await firestoreRepository.removeGroupFromUserCredentials([event.groupId]);
+      await firestoreRepository
+          .removeGroupFromUserCredentials([event.groupId], event.currentUserId);
       await firestoreRepository
           .removeUserFromGroupCredentials(event.groupId, [event.currentUserId]);
 

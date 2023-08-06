@@ -251,29 +251,27 @@ class _ViewGroupsMembersScreenState
         ? const Center(
             child: CircularProgressIndicator(),
           )
-        : SafeArea(
-            child: Scaffold(
-              backgroundColor: background,
-              appBar: AppBar(
-                elevation: 0,
-                iconTheme: const IconThemeData(color: kMainColor),
-                leading: IconButton(
-                  icon: const Icon(Icons.arrow_back, color: kMainColor),
-                  onPressed: () => Navigator.of(context)
-                      .pushReplacementNamed(MyGroupsScreen.routeName),
-                ),
-                backgroundColor: background,
-                centerTitle: true,
-                title: const Text(
-                  'View Members',
-                  style: TextStyle(
-                      fontSize: 21,
-                      color: kMainColor,
-                      fontWeight: FontWeight.bold),
-                ),
+        : Scaffold(
+            backgroundColor: background,
+            appBar: AppBar(
+              elevation: 0,
+              iconTheme: const IconThemeData(color: kMainColor),
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back_ios, color: kMainColor),
+                onPressed: () => Navigator.of(context).pop(),
+                // .pushReplacementNamed(MyGroupsScreen.routeName),
               ),
-              body: viewmembersStreamBuilder(),
+              backgroundColor: background,
+              centerTitle: true,
+              title: const Text(
+                'View Members',
+                style: TextStyle(
+                    fontSize: 21,
+                    color: kMainColor,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
+            body: viewmembersStreamBuilder(),
           );
   }
 }
@@ -302,195 +300,207 @@ class ViewGroupsMembersScreenBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     groupsBloc = BlocProvider.of<GroupsBloc>(context);
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 30),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          button == 'join'
-              ? Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                  child: Column(
-                    children: [
-                      GestureDetector(
-                          onTap: () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (builder) =>
-                                      GroupsMembersInviteScreen(group: group)),
-                            );
-                          },
-                          child: const SmallSingleRightTextBox(
-                              title: 'Invite New Members')),
-                    ],
-                  ),
-                )
-              : Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 30.0, vertical: 10),
-                  child: CustomRowTextField(
-                    name: 'groupPin',
-                    hint: 'SEARCH',
-                    isdigit: false,
-                  ),
-                ),
-          verticalSpacer(25),
-          Expanded(
-            child: Container(
-              color: blueBackground.withOpacity(0.08),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
-              child: ListView.builder(
-                  itemCount: snapshot.data!.docs.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    int? count = snapshot.data!.docs.length;
-                    print(count);
-
-                    return count == 0
-                        ? const Text('None')
-                        : Padding(
-                            padding: const EdgeInsets.only(top: 10.0),
-                            child: GestureDetector(
-                              onTap: () {},
-                              child: GeneralLargeTextBox(
-                                name: snapshot.data!.docs[index]
-                                    .get("memberName"),
-                                isImage: true,
-                                isSub: true,
-                                isUrlImage: true,
-                                subTitle: snapshot.data!.docs[index]
-                                    .get("memberEmail"),
-                                imageUrl: snapshot.data!.docs[index]
-                                    .get("memberImageUrl"),
-                              ),
-                              // child: GeneralLargeInviteTextBox(
-                              //   onTap: () {},
-                              //   name: user.firstName,
-                              //   isImage: true,
-                              //   isSub: true,
-                              //   subTitle: user.email,
-                              //   imageUrl: user.imageUrl,
-                              // ),
-                            ),
-                          );
-                  }),
-            ),
-          ),
-          verticalSpacer(25),
-          BlocListener<GroupsBloc, GroupsState>(
-            listener: (context, state) {
-              if (state is LeaveGroupSuccessfull) {
-                Future.delayed(Duration.zero, () {
-                  ScaffoldMessenger.of(context)
-                    ..removeCurrentSnackBar()
-                    ..showSnackBar(SnackBar(
-                      content:
-                          Text("You have successfully left ${group.groupName}"),
-                      backgroundColor: Colors.black,
-                    ));
-                });
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                      builder: (context) => const MyGroupsScreen()),
-                );
-              }
-            },
-            child:
-                BlocBuilder<GroupsBloc, GroupsState>(builder: (context, state) {
-              if (state is LeaveGroupInProgress) {
-                return const GeneralLargeLoadingTextBox(
-                  name: '',
-                  isImage: true,
-                  isSub: true,
-                  subTitle: '',
-                  imageUrl: '',
-                );
-              } else if (state is LeaveGroupFailed) {
-                Future.delayed(Duration.zero, () {
-                  ScaffoldMessenger.of(context)
-                    ..removeCurrentSnackBar()
-                    ..showSnackBar(SnackBar(
-                      content: Text(state.message),
-                      backgroundColor: Colors.red,
-                    ));
-                });
-              }
-              // else if (state
-              //     is AddMemberToGroupSuccessfull) {
-              //   return Container();
-              // }
-
-              return Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 0, left: 30, right: 30),
-                    child: Padding(
-                        padding: const EdgeInsets.only(top: 10.0),
-                        child: GestureDetector(
+    return Consumer(builder: (context, ref, child) {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 30),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            button == 'join'
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                    child: Column(
+                      children: [
+                        GestureDetector(
                             onTap: () {
-                              groupsBloc?.add(LeaveGroupEvent(
-                                  currentUserId: memberId,
-                                  groupName: group.groupName,
-                                  groupId: group.groupId!));
-                              Navigator.of(context).pushReplacementNamed(
-                                  MyGroupsScreen.routeName);
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (builder) =>
+                                        GroupsMembersInviteScreen(
+                                            group: group)),
+                              );
                             },
-                            child: ColouredOutlineTextBox(title: button))),
+                            child: const SmallSingleRightTextBox(
+                                title: 'Invite New Members')),
+                      ],
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30.0, vertical: 10),
+                    child: CustomRowTextField(
+                      name: 'groupPin',
+                      hint: 'SEARCH',
+                      isdigit: false,
+                    ),
                   ),
-                ],
-              );
-            }),
-          ),
+            verticalSpacer(25),
+            Expanded(
+              child: Container(
+                color: blueBackground.withOpacity(0.08),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
+                child: ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      int? count = snapshot.data!.docs.length;
+                      print(count);
 
-          // Column(
-          //   children: [
-          //     Row(
-          //       children: [
-          //         Expanded(
-          //             child: GestureDetector(
-          //                 onTap: () {
-          //                   Navigator.of(context)
-          //                       .pushNamed(SelectGroupTypeScreen.routeName);
-          //                 },
-          //                 child: const ColouredTextBox(title: 'JOIN'))),
-          //         horizontalSpacer(10),
-          //         Expanded(
-          //             child: GestureDetector(
-          //                 onTap: () {
-          //                   Navigator.of(context)
-          //                       .pushNamed(CreateGroupScreen.routeName);
-          //                 },
-          //                 child: const ColouredTextBox(title: 'CREATE'))),
-          //       ],
-          //     ),
-          //   ],
-          // ),
-          verticalSpacer(20),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   children: const [
-          //     SmallTextLetterBox(
-          //       isactive: false,
-          //       letter: 'H',
-          //     ),
-          //     SmallTextLetterBox(
-          //       isactive: true,
-          //       letter: 'C',
-          //     ),
-          //     SmallTextLetterBox(
-          //       isactive: false,
-          //       letter: 'W',
-          //     ),
-          //     SmallTextLetterBox(
-          //       isactive: false,
-          //       letter: 'S',
-          //     )
-          //   ],
-          // ),
-        ],
-      ),
-    );
+                      return count == 0
+                          ? const Text('None')
+                          : Padding(
+                              padding: const EdgeInsets.only(top: 10.0),
+                              child: GestureDetector(
+                                onTap: () {},
+                                child: GeneralLargeTextBox(
+                                  name: snapshot.data!.docs[index]
+                                      .get("memberName"),
+                                  isImage: true,
+                                  isSub: true,
+                                  isUrlImage: true,
+                                  subTitle: snapshot.data!.docs[index]
+                                      .get("memberEmail"),
+                                  imageUrl: snapshot.data!.docs[index]
+                                      .get("memberImageUrl"),
+                                ),
+                                // child: GeneralLargeInviteTextBox(
+                                //   onTap: () {},
+                                //   name: user.firstName,
+                                //   isImage: true,
+                                //   isSub: true,
+                                //   subTitle: user.email,
+                                //   imageUrl: user.imageUrl,
+                                // ),
+                              ),
+                            );
+                    }),
+              ),
+            ),
+            verticalSpacer(25),
+            BlocListener<GroupsBloc, GroupsState>(
+              listener: (context, state) {
+                if (state is LeaveGroupSuccessfull) {
+                  Future.delayed(Duration.zero, () {
+                    ScaffoldMessenger.of(context)
+                      ..removeCurrentSnackBar()
+                      ..showSnackBar(SnackBar(
+                        content: Text(
+                            "You have successfully left ${group.groupName}"),
+                        backgroundColor: Colors.black,
+                      ));
+                  });
+                  ref.read(indexProvider.notifier).state = 1;
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const DashboardScreen()));
+                  // Navigator.of(context).pushReplacement(
+                  //   MaterialPageRoute(
+                  //       builder: (context) => const MyGroupsScreen()),
+                  // );
+                }
+              },
+              child: BlocBuilder<GroupsBloc, GroupsState>(
+                  builder: (context, state) {
+                if (state is LeaveGroupInProgress) {
+                  return const GeneralLargeLoadingTextBox(
+                    name: '',
+                    isImage: true,
+                    isSub: true,
+                    subTitle: '',
+                    imageUrl: '',
+                  );
+                } else if (state is LeaveGroupFailed) {
+                  Future.delayed(Duration.zero, () {
+                    ScaffoldMessenger.of(context)
+                      ..removeCurrentSnackBar()
+                      ..showSnackBar(SnackBar(
+                        content: Text(state.message),
+                        backgroundColor: Colors.red,
+                      ));
+                  });
+                }
+                // else if (state
+                //     is AddMemberToGroupSuccessfull) {
+                //   return Container();
+                // }
+
+                return Column(
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 0, left: 30, right: 30),
+                      child: Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: GestureDetector(
+                              onTap: () {
+                                groupsBloc?.add(LeaveGroupEvent(
+                                    currentUserId: memberId,
+                                    groupName: group.groupName,
+                                    groupId: group.groupId!));
+                                ref.read(indexProvider.notifier).state = 1;
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const DashboardScreen()));
+                                // Navigator.of(context).pushReplacementNamed(
+                                //     MyGroupsScreen.routeName);
+                              },
+                              child: ColouredOutlineTextBox(title: button))),
+                    ),
+                  ],
+                );
+              }),
+            ),
+
+            // Column(
+            //   children: [
+            //     Row(
+            //       children: [
+            //         Expanded(
+            //             child: GestureDetector(
+            //                 onTap: () {
+            //                   Navigator.of(context)
+            //                       .pushNamed(SelectGroupTypeScreen.routeName);
+            //                 },
+            //                 child: const ColouredTextBox(title: 'JOIN'))),
+            //         horizontalSpacer(10),
+            //         Expanded(
+            //             child: GestureDetector(
+            //                 onTap: () {
+            //                   Navigator.of(context)
+            //                       .pushNamed(CreateGroupScreen.routeName);
+            //                 },
+            //                 child: const ColouredTextBox(title: 'CREATE'))),
+            //       ],
+            //     ),
+            //   ],
+            // ),
+            verticalSpacer(20),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: const [
+            //     SmallTextLetterBox(
+            //       isactive: false,
+            //       letter: 'H',
+            //     ),
+            //     SmallTextLetterBox(
+            //       isactive: true,
+            //       letter: 'C',
+            //     ),
+            //     SmallTextLetterBox(
+            //       isactive: false,
+            //       letter: 'W',
+            //     ),
+            //     SmallTextLetterBox(
+            //       isactive: false,
+            //       letter: 'S',
+            //     )
+            //   ],
+            // ),
+          ],
+        ),
+      );
+    });
   }
 }
