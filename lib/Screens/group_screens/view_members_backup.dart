@@ -3,6 +3,8 @@ import 'package:cooler/Models/group_model.dart';
 import 'package:cooler/Models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../Blocs/group_bloc/groups_bloc.dart';
@@ -10,11 +12,16 @@ import '../../Helpers/colors.dart';
 import '../../Helpers/constants.dart';
 import '../../Repositories/firestore_repository.dart';
 import '../../Repositories/user_repository.dart';
+import '../../Widgets/bottom_navigation_bar.dart';
 import '../../Widgets/texboxtbox_widgets.dart';
+import '../settings_screen.dart';
+import '../wallet_screens/wallet_home_screen.dart';
+import '../welcome_screen.dart';
+import 'create_group_screen.dart';
 import 'invite_members_screen.dart';
 import 'my_group_screen.dart';
 
-class ViewGroupsMembersScreen extends StatefulWidget {
+class ViewGroupsMembersScreen extends ConsumerStatefulWidget {
   final Group group;
   final String button;
   static const routeName = '/viewgroupsmember';
@@ -23,14 +30,143 @@ class ViewGroupsMembersScreen extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<ViewGroupsMembersScreen> createState() =>
+  ConsumerState<ViewGroupsMembersScreen> createState() =>
       _ViewGroupsMembersScreenState();
 }
 
-class _ViewGroupsMembersScreenState extends State<ViewGroupsMembersScreen> {
+class _ViewGroupsMembersScreenState
+    extends ConsumerState<ViewGroupsMembersScreen> {
   AppUser? currentUser;
   Stream<QuerySnapshot>? viewMembers;
   FirestoreRepository firestoreRepository = FirestoreRepository();
+  final List<Widget> pages = [
+    const WelcomeScreen(),
+    const MyGroupsScreen(),
+    const WalletHomeScreen(),
+    const SettingsScreen(),
+  ];
+
+  Widget buildBottomNavigationBar(int menuIndex) {
+    return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      selectedItemColor: kBlueColor,
+      unselectedItemColor: iconGreyColor,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+      selectedFontSize: 14,
+      unselectedFontSize: 13,
+      backgroundColor: white,
+      // selectedLabelStyle: TextStyle(
+      //   fontSize: 12.sp,
+      //   fontWeight: FontWeight.w500,
+      //   color: CustomColors.deepGoldColor,
+      // ),
+      // unselectedLabelStyle: TextStyle(
+      //   fontSize: 12.sp,
+      //   fontWeight: FontWeight.w500,
+      //   color: CustomColors.grayBackgroundColor,
+      // ),
+      currentIndex: menuIndex,
+      onTap: (i) {
+        ref.read(indexProvider.notifier).state = i;
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const DashboardScreen()));
+      },
+      items: [
+        BottomNavigationBarItem(
+          icon: SvgPicture.asset('assets/icons/home_icon.svg',
+              color: iconGreyColor),
+          label: 'Home',
+          activeIcon: SizedBox(
+            child: Column(
+              // mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset('assets/icons/home_icon.svg',
+                    color: kBlueColor),
+                SizedBox(
+                  width: 10,
+                  height: 10,
+                  child: CustomPaint(
+                    painter: UShapePainter(),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+        BottomNavigationBarItem(
+          icon: SvgPicture.asset('assets/icons/cooler_icon.svg'),
+          label: 'Savings',
+          activeIcon: SizedBox(
+            child: Column(
+              // mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset('assets/icons/cooler_icon.svg',
+                    color: kBlueColor),
+                SizedBox(
+                  width: 10,
+                  height: 10,
+                  child: CustomPaint(
+                    painter: UShapePainter(),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+        BottomNavigationBarItem(
+          icon: SvgPicture.asset(
+            'assets/icons/wallet_icon.svg',
+            // height: 20,
+          ),
+          label: 'Investments',
+          activeIcon: SizedBox(
+            child: Column(
+              // mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset('assets/icons/wallet_icon.svg',
+                    color: kBlueColor),
+                SizedBox(
+                  width: 10,
+                  height: 10,
+                  child: CustomPaint(
+                    painter: UShapePainter(),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+        BottomNavigationBarItem(
+          icon: SvgPicture.asset('assets/icons/settings_icon.svg',
+              // height: 22.h,
+              color: iconGreyColor),
+          label: 'Wallet',
+          activeIcon: SizedBox(
+            child: Column(
+              // mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset('assets/icons/settings_icon.svg',
+                    color: kBlueColor),
+                SizedBox(
+                  width: 10,
+                  height: 10,
+                  child: CustomPaint(
+                    painter: UShapePainter(),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget viewmembersStreamBuilder() {
     return StreamBuilder(
         stream: viewMembers,
@@ -61,7 +197,7 @@ class _ViewGroupsMembersScreenState extends State<ViewGroupsMembersScreen> {
             print(snapshot.data!.docs.length);
 
             return Padding(
-              padding: const EdgeInsets.only(top: 10.0),
+              padding: const EdgeInsets.only(),
               child: GestureDetector(
                 onTap: () {},
                 child: ViewGroupsMembersScreenBody(
@@ -117,7 +253,9 @@ class _ViewGroupsMembersScreenState extends State<ViewGroupsMembersScreen> {
           )
         : SafeArea(
             child: Scaffold(
+              backgroundColor: background,
               appBar: AppBar(
+                elevation: 0,
                 iconTheme: const IconThemeData(color: kMainColor),
                 leading: IconButton(
                   icon: const Icon(Icons.arrow_back, color: kMainColor),
@@ -127,7 +265,7 @@ class _ViewGroupsMembersScreenState extends State<ViewGroupsMembersScreen> {
                 backgroundColor: background,
                 centerTitle: true,
                 title: const Text(
-                  'VIEW MEMBERS',
+                  'View Members',
                   style: TextStyle(
                       fontSize: 21,
                       color: kMainColor,
@@ -165,31 +303,44 @@ class ViewGroupsMembersScreenBody extends StatelessWidget {
   Widget build(BuildContext context) {
     groupsBloc = BlocProvider.of<GroupsBloc>(context);
     return Padding(
-      padding:
-          const EdgeInsets.only(left: 30, right: 30.0, top: 50, bottom: 30),
+      padding: const EdgeInsets.only(bottom: 30),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           button == 'join'
-              ? Column(
-                  children: [
-                    GestureDetector(
-                        onTap: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (builder) =>
-                                    GroupsMembersInviteScreen(group: group)),
-                          );
-                        },
-                        child: const SmallSingleRightTextBox(
-                            title: 'Invite New Members')),
-                  ],
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                  child: Column(
+                    children: [
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (builder) =>
+                                      GroupsMembersInviteScreen(group: group)),
+                            );
+                          },
+                          child: const SmallSingleRightTextBox(
+                              title: 'Invite New Members')),
+                    ],
+                  ),
                 )
-              : const SizedBox(),
+              : Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 30.0, vertical: 10),
+                  child: CustomRowTextField(
+                    name: 'groupPin',
+                    hint: 'SEARCH',
+                    isdigit: false,
+                  ),
+                ),
           verticalSpacer(25),
           Expanded(
-            child: SizedBox(
+            child: Container(
+              color: blueBackground.withOpacity(0.08),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
               child: ListView.builder(
                   itemCount: snapshot.data!.docs.length,
                   shrinkWrap: true,
@@ -274,7 +425,7 @@ class ViewGroupsMembersScreenBody extends StatelessWidget {
               return Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 0),
+                    padding: const EdgeInsets.only(top: 0, left: 30, right: 30),
                     child: Padding(
                         padding: const EdgeInsets.only(top: 10.0),
                         child: GestureDetector(
@@ -286,7 +437,7 @@ class ViewGroupsMembersScreenBody extends StatelessWidget {
                               Navigator.of(context).pushReplacementNamed(
                                   MyGroupsScreen.routeName);
                             },
-                            child: ColouredTextBox(title: button))),
+                            child: ColouredOutlineTextBox(title: button))),
                   ),
                 ],
               );

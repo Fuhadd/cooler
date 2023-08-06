@@ -8,7 +8,7 @@ class AppUser {
   final int loanBalance;
   final String imageUrl;
   final int? employerNumber;
-  final List<dynamic>? coolers;
+  final List<dynamic>? cooler;
   final DateTime accountCreated;
 
   AppUser({
@@ -21,7 +21,7 @@ class AppUser {
     required this.loanBalance,
     required this.imageUrl,
     required this.accountCreated,
-    required this.coolers,
+    required this.cooler,
     required this.employerNumber,
   });
 
@@ -34,7 +34,7 @@ class AppUser {
         walletBalance: json['walletBalance'] ?? 0,
         loanBalance: json['loanBalance'] ?? 0,
         imageUrl: json['imageUrl'] ?? '',
-        coolers: json['coolers'] ?? [],
+        cooler: json['cooler'] ?? [],
         accountCreated: DateTime.now(),
         employerNumber: json['employerNumber'] ?? 0,
       );
@@ -48,7 +48,7 @@ class AppUser {
         "walletBalance": walletBalance,
         "loanBalance": loanBalance,
         "imageUrl": imageUrl,
-        "coolers": coolers,
+        "coolers": cooler,
         "employerNumber": employerNumber,
       };
 }

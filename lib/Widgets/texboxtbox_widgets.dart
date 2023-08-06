@@ -811,22 +811,44 @@ class GeneralLargeTextBox extends StatelessWidget {
                           height: 45,
                           width: 45,
                           decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                  imageUrl!,
-                                ),
-                                fit: BoxFit.cover),
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              // stops: const [1.0, 0.8444, 0.625, 0.57],
+                              colors: [
+                                const Color(0xFF348AED),
+                                const Color(0xFF4772E2).withOpacity(0.84),
+                                const Color(0xFF4E85E2).withOpacity(0.63),
+                                const Color(0xFF6242E2).withOpacity(0.57),
+                              ],
+                            ),
+                            // image: DecorationImage(
+                            //     image: NetworkImage(
+                            //       imageUrl!,
+                            //     ),
+                            //     fit: BoxFit.cover),
                           ),
                         )
                       : Container(
                           height: 45,
                           width: 45,
                           decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage(
-                                  imageUrl!,
-                                ),
-                                fit: BoxFit.cover),
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              // stops: const [1.0, 0.8444, 0.625, 0.57],
+                              colors: [
+                                const Color(0xFF348AED),
+                                const Color(0xFF4772E2).withOpacity(0.84),
+                                const Color(0xFF4E85E2).withOpacity(0.63),
+                                const Color(0xFF6242E2).withOpacity(0.57),
+                              ],
+                            ),
+                            // image: DecorationImage(
+                            //     image: AssetImage(
+                            //       imageUrl!,
+                            //     ),
+                            //     fit: BoxFit.cover),
                           ),
                         )
                   : isIcon

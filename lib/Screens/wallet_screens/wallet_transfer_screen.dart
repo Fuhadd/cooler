@@ -1,70 +1,151 @@
 import 'package:cooler/Screens/wallet_screens/wallet_home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../Helpers/colors.dart';
 import '../../Helpers/constants.dart';
+import '../../Widgets/bottom_navigation_bar.dart';
 import '../../Widgets/texboxtbox_widgets.dart';
 import '../../Widgets/text_widget.dart';
 import '../group_screens/my_group_screen.dart';
 import '../settings_screen.dart';
 import '../welcome_screen.dart';
 
-class WalletTransferScreen extends StatefulWidget {
+class WalletTransferScreen extends ConsumerStatefulWidget {
   static const routeName = '/walletTransfer';
   const WalletTransferScreen({Key? key}) : super(key: key);
 
   @override
-  State<WalletTransferScreen> createState() => _WalletTransferScreenState();
+  ConsumerState<WalletTransferScreen> createState() =>
+      _WalletTransferScreenState();
 }
 
-class _WalletTransferScreenState extends State<WalletTransferScreen> {
+class _WalletTransferScreenState extends ConsumerState<WalletTransferScreen> {
   final int _selectedIndex = 2;
-  final List<Widget> _pages = [
+  final List<Widget> pages = [
     const WelcomeScreen(),
     const MyGroupsScreen(),
     const WalletHomeScreen(),
     const SettingsScreen(),
   ];
 
-  Widget buildBottomNavigationBar(int selectedIndex) {
+  Widget buildBottomNavigationBar(int menuIndex) {
     return BottomNavigationBar(
-      currentIndex: _selectedIndex,
-      onTap: (index) {
-        Navigator.pop(context);
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => _pages[index]),
-        );
-      },
       type: BottomNavigationBarType.fixed,
+      selectedItemColor: kBlueColor,
+      unselectedItemColor: iconGreyColor,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+      selectedFontSize: 14,
+      unselectedFontSize: 13,
+      backgroundColor: white,
+      // selectedLabelStyle: TextStyle(
+      //   fontSize: 12.sp,
+      //   fontWeight: FontWeight.w500,
+      //   color: CustomColors.deepGoldColor,
+      // ),
+      // unselectedLabelStyle: TextStyle(
+      //   fontSize: 12.sp,
+      //   fontWeight: FontWeight.w500,
+      //   color: CustomColors.grayBackgroundColor,
+      // ),
+      currentIndex: menuIndex,
+      onTap: (i) {
+        ref.read(indexProvider.notifier).state = i;
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const DashboardScreen()));
+      },
       items: [
         BottomNavigationBarItem(
-          icon: SmallTextLetterBox(
-            isactive: selectedIndex == 0 ? true : false,
-            icon: Icons.home,
+          icon: SvgPicture.asset('assets/icons/home_icon.svg',
+              color: iconGreyColor),
+          label: 'Home',
+          activeIcon: SizedBox(
+            child: Column(
+              // mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset('assets/icons/home_icon.svg',
+                    color: kBlueColor),
+                SizedBox(
+                  width: 10,
+                  height: 10,
+                  child: CustomPaint(
+                    painter: UShapePainter(),
+                  ),
+                )
+              ],
+            ),
           ),
-          label: '',
         ),
         BottomNavigationBarItem(
-          icon: SmallTextLetterBox(
-            isactive: selectedIndex == 1 ? true : false,
-            icon: Icons.group,
+          icon: SvgPicture.asset('assets/icons/cooler_icon.svg'),
+          label: 'Savings',
+          activeIcon: SizedBox(
+            child: Column(
+              // mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset('assets/icons/cooler_icon.svg',
+                    color: kBlueColor),
+                SizedBox(
+                  width: 10,
+                  height: 10,
+                  child: CustomPaint(
+                    painter: UShapePainter(),
+                  ),
+                )
+              ],
+            ),
           ),
-          label: '',
         ),
         BottomNavigationBarItem(
-          icon: SmallTextLetterBox(
-            isactive: selectedIndex == 2 ? true : false,
-            icon: Icons.wallet,
+          icon: SvgPicture.asset(
+            'assets/icons/wallet_icon.svg',
+            // height: 20,
           ),
-          label: '',
+          label: 'Investments',
+          activeIcon: SizedBox(
+            child: Column(
+              // mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset('assets/icons/wallet_icon.svg',
+                    color: kBlueColor),
+                SizedBox(
+                  width: 10,
+                  height: 10,
+                  child: CustomPaint(
+                    painter: UShapePainter(),
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
         BottomNavigationBarItem(
-          icon: SmallTextLetterBox(
-            isactive: selectedIndex == 3 ? true : false,
-            icon: Icons.settings,
+          icon: SvgPicture.asset('assets/icons/settings_icon.svg',
+              // height: 22.h,
+              color: iconGreyColor),
+          label: 'Wallet',
+          activeIcon: SizedBox(
+            child: Column(
+              // mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset('assets/icons/settings_icon.svg',
+                    color: kBlueColor),
+                SizedBox(
+                  width: 10,
+                  height: 10,
+                  child: CustomPaint(
+                    painter: UShapePainter(),
+                  ),
+                )
+              ],
+            ),
           ),
-          label: '',
         ),
       ],
     );
@@ -73,8 +154,10 @@ class _WalletTransferScreenState extends State<WalletTransferScreen> {
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
+    final menuIndex = ref.watch(indexProvider);
     return SafeArea(
       child: Scaffold(
+        bottomNavigationBar: buildBottomNavigationBar(menuIndex),
         // bottomNavigationBar: buildBottomNavigationBar(_selectedIndex),
         appBar: AppBar(
           elevation: 0,

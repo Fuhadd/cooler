@@ -3,78 +3,159 @@ import 'package:cooler/Models/group_model.dart';
 import 'package:cooler/Screens/group_screens/view_members_screen.dart';
 import 'package:cooler/Screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../Helpers/colors.dart';
 import '../../Helpers/constants.dart';
 import '../../Models/user_model.dart';
 import '../../Repositories/firestore_repository.dart';
+import '../../Widgets/bottom_navigation_bar.dart';
 import '../../Widgets/texboxtbox_widgets.dart';
 import '../settings_screen.dart';
 import '../wallet_screens/wallet_home_screen.dart';
 import 'create_group_screen.dart';
 import 'my_group_screen.dart';
 
-class EmployerGroupsScreen extends StatefulWidget {
+class EmployerGroupsScreen extends ConsumerStatefulWidget {
   static const routeName = '/my_groups';
   const EmployerGroupsScreen({required this.currentUser, Key? key})
       : super(key: key);
   final AppUser currentUser;
 
   @override
-  State<EmployerGroupsScreen> createState() => _EmployerGroupsScreenState();
+  ConsumerState<EmployerGroupsScreen> createState() =>
+      _EmployerGroupsScreenState();
 }
 
-class _EmployerGroupsScreenState extends State<EmployerGroupsScreen> {
+class _EmployerGroupsScreenState extends ConsumerState<EmployerGroupsScreen> {
   Stream<QuerySnapshot>? employerGroups;
   FirestoreRepository firestoreRepository = FirestoreRepository();
-  final int _selectedIndex = 1;
-  final List<Widget> _pages = [
+  final int _selectedIndex = 2;
+  final List<Widget> pages = [
     const WelcomeScreen(),
     const MyGroupsScreen(),
     const WalletHomeScreen(),
     const SettingsScreen(),
   ];
 
-  Widget buildBottomNavigationBar(int selectedIndex) {
+  Widget buildBottomNavigationBar(int menuIndex) {
     return BottomNavigationBar(
-      currentIndex: _selectedIndex,
-      onTap: (index) {
-        Navigator.pop(context);
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => _pages[index]),
-        );
-      },
       type: BottomNavigationBarType.fixed,
+      selectedItemColor: kBlueColor,
+      unselectedItemColor: iconGreyColor,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+      selectedFontSize: 14,
+      unselectedFontSize: 13,
+      backgroundColor: white,
+      // selectedLabelStyle: TextStyle(
+      //   fontSize: 12.sp,
+      //   fontWeight: FontWeight.w500,
+      //   color: CustomColors.deepGoldColor,
+      // ),
+      // unselectedLabelStyle: TextStyle(
+      //   fontSize: 12.sp,
+      //   fontWeight: FontWeight.w500,
+      //   color: CustomColors.grayBackgroundColor,
+      // ),
+      currentIndex: menuIndex,
+      onTap: (i) {
+        ref.read(indexProvider.notifier).state = i;
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const DashboardScreen()));
+      },
       items: [
         BottomNavigationBarItem(
-          icon: SmallTextLetterBox(
-            isactive: selectedIndex == 0 ? true : false,
-            icon: Icons.home,
+          icon: SvgPicture.asset('assets/icons/home_icon.svg',
+              color: iconGreyColor),
+          label: 'Home',
+          activeIcon: SizedBox(
+            child: Column(
+              // mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset('assets/icons/home_icon.svg',
+                    color: kBlueColor),
+                SizedBox(
+                  width: 10,
+                  height: 10,
+                  child: CustomPaint(
+                    painter: UShapePainter(),
+                  ),
+                )
+              ],
+            ),
           ),
-          label: '',
         ),
         BottomNavigationBarItem(
-          icon: SmallTextLetterBox(
-            isactive: selectedIndex == 1 ? true : false,
-            icon: Icons.group,
+          icon: SvgPicture.asset('assets/icons/cooler_icon.svg'),
+          label: 'Savings',
+          activeIcon: SizedBox(
+            child: Column(
+              // mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset('assets/icons/cooler_icon.svg',
+                    color: kBlueColor),
+                SizedBox(
+                  width: 10,
+                  height: 10,
+                  child: CustomPaint(
+                    painter: UShapePainter(),
+                  ),
+                )
+              ],
+            ),
           ),
-          label: '',
         ),
         BottomNavigationBarItem(
-          icon: SmallTextLetterBox(
-            isactive: selectedIndex == 2 ? true : false,
-            icon: Icons.wallet,
+          icon: SvgPicture.asset(
+            'assets/icons/wallet_icon.svg',
+            // height: 20,
           ),
-          label: '',
+          label: 'Investments',
+          activeIcon: SizedBox(
+            child: Column(
+              // mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset('assets/icons/wallet_icon.svg',
+                    color: kBlueColor),
+                SizedBox(
+                  width: 10,
+                  height: 10,
+                  child: CustomPaint(
+                    painter: UShapePainter(),
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
         BottomNavigationBarItem(
-          icon: SmallTextLetterBox(
-            isactive: selectedIndex == 3 ? true : false,
-            icon: Icons.settings,
+          icon: SvgPicture.asset('assets/icons/settings_icon.svg',
+              // height: 22.h,
+              color: iconGreyColor),
+          label: 'Wallet',
+          activeIcon: SizedBox(
+            child: Column(
+              // mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset('assets/icons/settings_icon.svg',
+                    color: kBlueColor),
+                SizedBox(
+                  width: 10,
+                  height: 10,
+                  child: CustomPaint(
+                    painter: UShapePainter(),
+                  ),
+                )
+              ],
+            ),
           ),
-          label: '',
         ),
       ],
     );
@@ -92,7 +173,7 @@ class _EmployerGroupsScreenState extends State<EmployerGroupsScreen> {
             );
           }
           AppUser userDetails = AppUser.fromJson(snapshot.data!.docs[0].data());
-          List<dynamic> userGroups = userDetails.coolers!;
+          List<dynamic> userGroups = userDetails.cooler!;
           if (userGroups.isEmpty) {
             return EmployerGroupScreenEmpty(
               currentUser: widget.currentUser,
@@ -131,10 +212,20 @@ class _EmployerGroupsScreenState extends State<EmployerGroupsScreen> {
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
+    final menuIndex = ref.watch(indexProvider);
+    final List<Widget> pages = [
+      const WelcomeScreen(),
+      const MyGroupsScreen(),
+      const WalletHomeScreen(),
+      const SettingsScreen(),
+    ];
     return SafeArea(
       child: Scaffold(
+        bottomNavigationBar: buildBottomNavigationBar(menuIndex),
+        backgroundColor: background,
         // bottomNavigationBar: buildBottomNavigationBar(_selectedIndex),
         appBar: AppBar(
+          elevation: 0,
           iconTheme: const IconThemeData(color: kMainColor),
           // leading: IconButton(
           //   icon: const Icon(Icons.arrow_back, color: kMainColor),
@@ -144,7 +235,7 @@ class _EmployerGroupsScreenState extends State<EmployerGroupsScreen> {
           backgroundColor: background,
           centerTitle: true,
           title: const Text(
-            'JOIN COOLERS',
+            'Join Coolers',
             style: TextStyle(
                 fontSize: 21, color: kMainColor, fontWeight: FontWeight.bold),
           ),
@@ -172,36 +263,40 @@ class EmployerGroupScreenBody extends StatelessWidget {
     var employerArray = [];
     var result = snapshot.data?.docs;
     for (int i = 0; i < result!.length; i++) {
-      var employerList = result[i].get("coolers");
+      var employerList = result[i].get("cooler");
       for (int i = 0; i < employerList.length; i++) {
         employerArray.add(employerList[i]);
       }
     }
     return Padding(
-      padding:
-          const EdgeInsets.only(left: 30, right: 30.0, top: 50, bottom: 30),
+      padding: const EdgeInsets.only(top: 50, bottom: 30),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            children: [
-              CustomTextField(
-                name: 'groupPin',
-                hint: 'SEARCH',
-                isdigit: false,
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            child: Column(
+              children: [
+                CustomRowTextField(
+                  name: 'groupPin',
+                  hint: 'SEARCH',
+                  isdigit: false,
+                ),
+              ],
+            ),
           ),
           verticalSpacer(25),
           Expanded(
-            child: SizedBox(
+            child: Container(
+              color: blueBackground.withOpacity(0.08),
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: ListView.builder(
                   itemCount: employerArray.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     String groupId = employerArray[index];
 
-                    int? count = snapshot.data?.docs[0].get("coolers").length;
+                    int? count = snapshot.data?.docs[0].get("cooler").length;
                     return count == 0
                         ? const Text('None')
                         : FutureBuilder<Group?>(
@@ -298,7 +393,7 @@ class EmployerGroupScreenEmpty extends StatelessWidget {
         children: [
           Column(
             children: [
-              CustomTextField(
+              CustomRowTextField(
                 name: 'groupPin',
                 hint: 'SEARCH',
                 isdigit: false,

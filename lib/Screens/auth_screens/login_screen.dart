@@ -200,6 +200,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         text: 'Login',
                         textColor: Colors.white,
                         onPress: () {
+                          FocusScope.of(context).unfocus();
                           if (_formKey.currentState!.validate()) {
                             loginBloc?.add(
                               LoginButtonPressed(

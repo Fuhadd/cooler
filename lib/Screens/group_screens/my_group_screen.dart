@@ -84,8 +84,14 @@ class _MyGroupsScreenState extends State<MyGroupsScreen> {
       stream: myGroups,
       builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasData) {
+          print(snapshot.data!.data());
+          // try {
+          //   AppUser userDetails = AppUser.fromJson(snapshot.data!.data());
+          // } catch (e) {
+          //   print(e.toString());
+          // }
           AppUser userDetails = AppUser.fromJson(snapshot.data!.data());
-          List<dynamic> userGroups = userDetails.coolers!;
+          List<dynamic> userGroups = userDetails.cooler!;
           if (userGroups.isEmpty) {
             return MyGroupScreenEmpty(
               currentUser: currentUser!,
@@ -168,32 +174,36 @@ class MyGroupScreenBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          const EdgeInsets.only(left: 30, right: 30.0, top: 50, bottom: 30),
+      padding: const EdgeInsets.only(top: 50, bottom: 30),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            children: [
-              CustomTextField(
-                name: 'groupPin',
-                hint: 'SEARCH',
-                isdigit: false,
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            child: Column(
+              children: [
+                CustomRowTextField(
+                  name: 'groupPin',
+                  hint: 'SEARCH',
+                  isdigit: false,
+                ),
+              ],
+            ),
           ),
           verticalSpacer(25),
           Expanded(
-            child: SizedBox(
+            child: Container(
+              color: blueBackground.withOpacity(0.08),
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: ListView.builder(
                   itemCount: snapshot.data
-                      ?.get("coolers")
+                      ?.get("cooler")
                       .length, //  ;.docs.length ?? 6,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    String groupId = snapshot.data?.get("coolers")[index];
+                    String groupId = snapshot.data?.get("cooler")[index];
 
-                    int? count = snapshot.data?.get("coolers").length;
+                    int? count = snapshot.data?.get("cooler").length;
                     return count == 0
                         ? const Text('None')
                         : FutureBuilder<Group?>(
@@ -284,50 +294,53 @@ class MyGroupScreenBody extends StatelessWidget {
             ),
           ),
           verticalSpacer(25),
-          Column(
-            children: [
-              // GestureDetector(
-              //     onTap: () async {
-              //       Navigator.of(context).pushReplacement(MaterialPageRoute(
-              //           builder: ((context) =>
-              //               MyInviteScreen(currentUser: currentUser))));
-              //     },
-              //     child: const ColouredTextBox(title: 'INVITES')),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            child: Column(
+              children: [
+                // GestureDetector(
+                //     onTap: () async {
+                //       Navigator.of(context).pushReplacement(MaterialPageRoute(
+                //           builder: ((context) =>
+                //               MyInviteScreen(currentUser: currentUser))));
+                //     },
+                //     child: const ColouredTextBox(title: 'INVITES')),
 
-              Row(
-                children: [
-                  Expanded(
-                      child: GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => EmployerGroupsScreen(
-                                    currentUser: currentUser)));
-                          },
-                          child: const ColouredTextBox(title: 'JOIN'))),
-                  // horizontalSpacer(10),
-                  // Expanded(
-                  //     child: GestureDetector(
-                  //         onTap: () {
-                  //           Navigator.of(context)
-                  //               .pushNamed(CreateGroupScreen.routeName);
-                  //         },
-                  //         child: const ColouredTextBox(title: 'CREATE'))),
-                ],
-              ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => EmployerGroupsScreen(
+                                      currentUser: currentUser)));
+                            },
+                            child: const ColouredTextBox(title: 'JOIN'))),
+                    // horizontalSpacer(10),
+                    // Expanded(
+                    //     child: GestureDetector(
+                    //         onTap: () {
+                    //           Navigator.of(context)
+                    //               .pushNamed(CreateGroupScreen.routeName);
+                    //         },
+                    //         child: const ColouredTextBox(title: 'CREATE'))),
+                  ],
+                ),
 
-              GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const CreateGroupScreen()),
-                    );
-                    // Navigator.of(context)
-                    //     .pushNamed(CreateGroupScreen.routeName);
-                  },
-                  child: const ColouredTextBox(title: 'CREATE')),
-              // verticalSpacer(20),
-            ],
+                GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CreateGroupScreen()),
+                      );
+                      // Navigator.of(context)
+                      //     .pushNamed(CreateGroupScreen.routeName);
+                    },
+                    child: const ColouredOutlineTextBox(title: 'CREATE')),
+                // verticalSpacer(20),
+              ],
+            ),
           ),
         ],
       ),

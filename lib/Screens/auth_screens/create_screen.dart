@@ -539,6 +539,7 @@ class _CreateScreenState extends State<CreateScreen> {
                               // setState(() {
                               //   _loading = true;
                               // });
+                              FocusScope.of(context).unfocus();
                               var validate = _formKey.currentState?.validate();
                               if (image == null) {
                                 validate = false;

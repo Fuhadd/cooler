@@ -28,50 +28,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     const SettingsScreen(),
   ];
 
-  Widget buildBottomNavigationBar(int selectedIndex) {
-    return BottomNavigationBar(
-      currentIndex: _selectedIndex,
-      onTap: (index) {
-        Navigator.pop(context);
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => _pages[index]),
-        );
-      },
-      type: BottomNavigationBarType.fixed,
-      items: [
-        BottomNavigationBarItem(
-          icon: SmallTextLetterBox(
-            isactive: selectedIndex == 0 ? true : false,
-            icon: Icons.home,
-          ),
-          label: '',
-        ),
-        BottomNavigationBarItem(
-          icon: SmallTextLetterBox(
-            isactive: selectedIndex == 1 ? true : false,
-            icon: Icons.group,
-          ),
-          label: '',
-        ),
-        BottomNavigationBarItem(
-          icon: SmallTextLetterBox(
-            isactive: selectedIndex == 2 ? true : false,
-            icon: Icons.wallet,
-          ),
-          label: '',
-        ),
-        BottomNavigationBarItem(
-          icon: SmallTextLetterBox(
-            isactive: selectedIndex == 3 ? true : false,
-            icon: Icons.settings,
-          ),
-          label: '',
-        ),
-      ],
-    );
-  }
-
   @override
   void initState() {
     UserRepository().fetchCurrentUser().then((value) {
@@ -90,7 +46,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         (MediaQuery.of(context).padding.bottom);
     return SafeArea(
       child: currentUser == null
-          ? const CircularProgressIndicator()
+          ? const Center(
+              child: CircularProgressIndicator(
+              color: kBlueColor,
+            ))
           : Scaffold(
               backgroundColor: background,
               // drawer: const CustomNavigationDrawer(
