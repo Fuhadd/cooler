@@ -212,464 +212,459 @@ class _CreateGroupScreenState extends ConsumerState<CreateGroupScreen> {
     groupsBloc = BlocProvider.of<GroupsBloc>(context);
     var screenHeight = MediaQuery.of(context).size.height;
     final menuIndex = ref.watch(indexProvider);
-    return SafeArea(
-      child: Scaffold(
+    return Scaffold(
+      backgroundColor: background,
+      bottomNavigationBar: buildBottomNavigationBar(menuIndex),
+      // bottomNavigationBar: buildBottomNavigationBar(_selectedIndex),
+      // bottomNavigationBar: BuildBottomNavigationBar(
+      //   selectedIndex: 1,
+      // ),
+      appBar: AppBar(
+        elevation: 0,
         backgroundColor: background,
-        bottomNavigationBar: buildBottomNavigationBar(menuIndex),
-        // bottomNavigationBar: buildBottomNavigationBar(_selectedIndex),
-        // bottomNavigationBar: BuildBottomNavigationBar(
-        //   selectedIndex: 1,
-        // ),
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: background,
-          centerTitle: true,
-          title: const Text(
-            'Create Cooler',
-            style: TextStyle(
-                fontSize: 21, color: kMainColor, fontWeight: FontWeight.bold),
-          ),
+        centerTitle: true,
+        title: const Text(
+          'Create Cooler',
+          style: TextStyle(
+              fontSize: 21, color: kMainColor, fontWeight: FontWeight.bold),
         ),
-        body: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    left: 30, right: 30.0, top: 50, bottom: 30),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    FormBuilder(
-                      key: _formKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Center(
-                          //   child: _loading
-                          //       ? Container(
-                          //           height: 100,
-                          //           width: 100,
-                          //           decoration: BoxDecoration(
-                          //             border: Border.all(
-                          //               color: Colors.grey,
-                          //               width: 1,
-                          //             ),
-                          //           ),
-                          //           child: const Center(
-                          //             child: CircularProgressIndicator(),
-                          //           ),
-                          //         )
-                          //       : image == null
-                          //           ? Container(
-                          //               height: 100,
-                          //               width: 100,
-                          //               decoration: BoxDecoration(
-                          //                 border: Border.all(
-                          //                   color: Colors.grey,
-                          //                   width: 1,
-                          //                 ),
-                          //               ),
-                          //               child: Center(
-                          //                 child: IconButton(
-                          //                     icon: const Icon(Icons.image),
-                          //                     onPressed: () async {
-                          //                       var imagePath =
-                          //                           await onPickImage();
-                          //                       setState(() {
-                          //                         _loading = false;
-                          //                       });
-                          //                       if (imagePath == null) {
-                          //                         Future.delayed(Duration.zero,
-                          //                             () {
-                          //                           ScaffoldMessenger.of(
-                          //                               context)
-                          //                             ..removeCurrentSnackBar()
-                          //                             ..showSnackBar(
-                          //                                 const SnackBar(
-                          //                               content: Text(
-                          //                                   "Failed to pick an Image"),
-                          //                               backgroundColor:
-                          //                                   Colors.black,
-                          //                             ));
-                          //                         });
-                          //                       } else {
-                          //                         final tempimage = File(
-                          //                             imagePath.toString());
-                          //                         setState(() {
-                          //                           image = tempimage;
-                          //                         });
-                          //                       }
-                          //                     }),
-                          //               ),
-                          //             )
-                          //           : Container(
-                          //               height: 100,
-                          //               width: 100,
-                          //               decoration: BoxDecoration(
-                          //                 image: DecorationImage(
-                          //                     image: FileImage(image!),
-                          //                     fit: BoxFit.cover),
-                          //                 border: Border.all(
-                          //                   color: Colors.grey,
-                          //                   width: 1,
-                          //                 ),
-                          //               ),
-                          //             ),
-                          // ),
-                          // verticalSpacer(25),
-                          FormHeader('Name'),
-                          verticalSpacer(5),
-                          // const SmallSingleLeftTextBox(title: 'FEMI SAVERS'),
-                          CustomTextField(
-                            name: 'groupName',
-                            // hint: 'Enter Group Name ......',
-                            hint: '',
-                            isdigit: false,
-                            validator: FormBuilderValidators.compose(
-                              [
-                                FormBuilderValidators.minLength(4,
-                                    errorText:
-                                        'A valid group name should be greater than 4 characters '),
-                              ],
-                            ),
-                          ),
-                          verticalSpacer(15),
-
-                          FormHeader('Fee'),
-                          verticalSpacer(5),
-                          CustomTextField(
-                            name: 'amount',
-                            // hint: 'Enter Set Amount ......',
-                            hint: '',
-                            isdigit: true,
-                            validator: FormBuilderValidators.compose(
-                              [
-                                FormBuilderValidators.required(
-                                    errorText: 'This is a required field'),
-                                FormBuilderValidators.integer(
-                                    errorText:
-                                        'A valid pin should be in digit '),
-                                // FormBuilderValidators.minLength(3,
-                                //     errorText:
-                                //         'A valid pin should be greater than 3 characters '),
-                              ],
-                            ),
-                          ),
-                          //  SmallSingleLeftTextBox(title: 'N100,000'),
-                          verticalSpacer(15),
-                          FormHeader('Max'),
-                          verticalSpacer(5),
-                          CustomTextField(
-                            name: 'noOfSavers',
-                            // hint: 'Enter Savers No ......',
-                            hint: '',
-                            isdigit: true,
-                            validator: FormBuilderValidators.compose(
-                              [
-                                FormBuilderValidators.required(
-                                    errorText: 'This is a required field'),
-                                FormBuilderValidators.integer(
-                                    errorText:
-                                        'A valid No.Of Savers be in digit '),
-                                FormBuilderValidators.max(12,
-                                    errorText:
-                                        'A valid NO. Of Savers should be less than 12'),
-                                FormBuilderValidators.min(1,
-                                    errorText:
-                                        'A valid NO. Of Savers should be greater than 1'),
-                              ],
-                            ),
-                          ),
-                          // const SmallSingleLeftTextBox(title: '12'),
-                          verticalSpacer(15),
-                          FormHeader('Start'),
-                          verticalSpacer(5),
-                          CustomDateField(
-                            name: 'startDate',
-                            // hint: 'Click to select Start Date ......',
-                            hint: '',
-                            validator: FormBuilderValidators.compose(
-                              [
-                                FormBuilderValidators.required(
-                                    errorText: 'This is a required field'),
-                              ],
-                            ),
-                          ),
-                          verticalSpacer(15),
-                          FormHeader('Payout'),
-                          verticalSpacer(5),
-                          CustomDateField(
-                            name: 'payoutDate',
-                            // hint: 'Click to select Start Date ......',
-                            hint: '',
-                            validator: FormBuilderValidators.compose(
-                              [
-                                FormBuilderValidators.required(
-                                    errorText: 'This is a required field'),
-                              ],
-                            ),
-                          ),
-                          verticalSpacer(10),
-
-                          Column(
-                            children: [
-                              SizedBox(
-                                width: double.infinity,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Radio(
-                                            // title: const Text('Off'),
-                                            value: 'off',
-                                            activeColor: kBlueColor,
-                                            groupValue: _radioValue,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                _radioValue = value!;
-                                                _showContainer = false;
-                                              });
-                                            },
-                                          ),
-                                          FormHeader('Public'),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Radio(
-                                            // title: const Text('On'),
-                                            value: 'on',
-                                            activeColor: kBlueColor,
-                                            groupValue: _radioValue,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                _radioValue = value!;
-                                                _showContainer = true;
-                                              });
-                                            },
-                                          ),
-                                          FormHeader('Private'),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+      ),
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  left: 30, right: 30.0, top: 50, bottom: 30),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  FormBuilder(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Center(
+                        //   child: _loading
+                        //       ? Container(
+                        //           height: 100,
+                        //           width: 100,
+                        //           decoration: BoxDecoration(
+                        //             border: Border.all(
+                        //               color: Colors.grey,
+                        //               width: 1,
+                        //             ),
+                        //           ),
+                        //           child: const Center(
+                        //             child: CircularProgressIndicator(),
+                        //           ),
+                        //         )
+                        //       : image == null
+                        //           ? Container(
+                        //               height: 100,
+                        //               width: 100,
+                        //               decoration: BoxDecoration(
+                        //                 border: Border.all(
+                        //                   color: Colors.grey,
+                        //                   width: 1,
+                        //                 ),
+                        //               ),
+                        //               child: Center(
+                        //                 child: IconButton(
+                        //                     icon: const Icon(Icons.image),
+                        //                     onPressed: () async {
+                        //                       var imagePath =
+                        //                           await onPickImage();
+                        //                       setState(() {
+                        //                         _loading = false;
+                        //                       });
+                        //                       if (imagePath == null) {
+                        //                         Future.delayed(Duration.zero,
+                        //                             () {
+                        //                           ScaffoldMessenger.of(
+                        //                               context)
+                        //                             ..removeCurrentSnackBar()
+                        //                             ..showSnackBar(
+                        //                                 const SnackBar(
+                        //                               content: Text(
+                        //                                   "Failed to pick an Image"),
+                        //                               backgroundColor:
+                        //                                   Colors.black,
+                        //                             ));
+                        //                         });
+                        //                       } else {
+                        //                         final tempimage = File(
+                        //                             imagePath.toString());
+                        //                         setState(() {
+                        //                           image = tempimage;
+                        //                         });
+                        //                       }
+                        //                     }),
+                        //               ),
+                        //             )
+                        //           : Container(
+                        //               height: 100,
+                        //               width: 100,
+                        //               decoration: BoxDecoration(
+                        //                 image: DecorationImage(
+                        //                     image: FileImage(image!),
+                        //                     fit: BoxFit.cover),
+                        //                 border: Border.all(
+                        //                   color: Colors.grey,
+                        //                   width: 1,
+                        //                 ),
+                        //               ),
+                        //             ),
+                        // ),
+                        // verticalSpacer(25),
+                        FormHeader('Name'),
+                        verticalSpacer(5),
+                        // const SmallSingleLeftTextBox(title: 'FEMI SAVERS'),
+                        CustomTextField(
+                          name: 'groupName',
+                          // hint: 'Enter Group Name ......',
+                          hint: '',
+                          isdigit: false,
+                          validator: FormBuilderValidators.compose(
+                            [
+                              FormBuilderValidators.minLength(4,
+                                  errorText:
+                                      'A valid group name should be greater than 4 characters '),
                             ],
                           ),
-                          _showContainer == true
-                              ? Row(
-                                  children: [
-                                    FormHeader('Pin'),
-                                    horizontalSpacer(10),
-                                    Expanded(
-                                      child: CustomTextField(
-                                        name: 'pin',
-                                        hint: '',
-                                        isdigit: true,
-                                        validator:
-                                            FormBuilderValidators.compose(
-                                          [
-                                            FormBuilderValidators.required(
-                                                errorText:
-                                                    'This is a required field'),
-                                            FormBuilderValidators.integer(
-                                                errorText:
-                                                    'A valid pin be in digit '),
-                                            FormBuilderValidators.minLength(3,
-                                                errorText:
-                                                    'A valid pin should be greater than 3 characters '),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              : verticalSpacer(10),
+                        ),
+                        verticalSpacer(15),
 
-                          // const SmallSingleLeftTextBox(title: '01 - 02 - 2023'),
-                          verticalSpacer(40),
-                        ],
-                      ),
-                    ),
-                    Column(
-                      children: [
-                        // SizedBox(
-                        //     width: double.infinity,
-                        //     child: GestureDetector(
-                        //         onTap: () {
-                        //           FocusScope.of(context).unfocus();
-                        //           var validate = _formKey.currentState?.validate();
-
-                        //           if (validate == true) {
-                        //             _formKey.currentState?.save();
-                        //             var status =
-                        //                 value == true ? 'private' : 'public';
-                        //             var groupName = _formKey
-                        //                 .currentState?.fields['groupName']?.value
-                        //                 .toString()
-                        //                 .trim();
-
-                        //             var password = _formKey
-                        //                 .currentState?.fields['password']?.value
-                        //                 .toString()
-                        //                 .trim();
-                        //             var pin =
-                        //                 _formKey.currentState?.fields['pin']?.value;
-                        //             var amount = int.parse(_formKey
-                        //                 .currentState?.fields['amount']?.value);
-                        //             var noOfSavers = int.parse(_formKey
-                        //                 .currentState?.fields['noOfSavers']?.value);
-                        //             var startDate = _formKey
-                        //                 .currentState?.fields['startDate']?.value;
-
-                        //             groupsBloc?.add(CreateGroupEvent(
-                        //                 status: status,
-                        //                 groupName: groupName!,
-                        //                 amount: amount,
-                        //                 noOfSavers: noOfSavers,
-                        //                 startDate: startDate));
-
-                        //           }
-
-                        //         },
-                        //         child: const ColouredTextBox(title: 'CONFIRM'))),
-
-                        BlocListener<GroupsBloc, GroupsState>(
-                          listener: (context, state) {
-                            if (state is CreateGroupSuccessfull) {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (builder) =>
-                                        const MyGroupsScreen()),
-                              );
-                            }
-                          },
-                          child: BlocBuilder<GroupsBloc, GroupsState>(
-                            builder: (context, state) {
-                              if (state is CreateGroupInProgress) {
-                                return const SizedBox(
-                                    width: double.infinity,
-                                    child: ColouredLoadingBox());
-                              } else if (state is CreateGroupFailed) {
-                                Future.delayed(Duration.zero, () {
-                                  ScaffoldMessenger.of(context)
-                                    ..removeCurrentSnackBar()
-                                    ..showSnackBar(SnackBar(
-                                      content: Text(state.message),
-                                      backgroundColor: Colors.red,
-                                    ));
-                                });
-                              }
-
-                              return SizedBox(
-                                  width: double.infinity,
-                                  child: GestureDetector(
-                                      onTap: () {
-                                        FocusScope.of(context).unfocus();
-                                        var validate =
-                                            _formKey.currentState?.validate();
-                                        // if (image == null) {
-                                        if (false) {
-                                          validate = false;
-                                          Future.delayed(Duration.zero, () {
-                                            ScaffoldMessenger.of(context)
-                                              ..removeCurrentSnackBar()
-                                              ..showSnackBar(const SnackBar(
-                                                content: Text(
-                                                    'Profile Image Field Cannot Be Empty'),
-                                                backgroundColor: Colors.red,
-                                              ));
-                                          });
-                                        }
-
-                                        if (validate == true) {
-                                          _formKey.currentState?.save();
-                                          var status = _showContainer == true
-                                              ? 'private'
-                                              : 'public';
-                                          var groupName = _formKey.currentState
-                                              ?.fields['groupName']?.value
-                                              .toString()
-                                              .trim();
-
-                                          var password = _formKey.currentState
-                                              ?.fields['password']?.value
-                                              .toString()
-                                              .trim();
-                                          var pin = _formKey.currentState
-                                              ?.fields['pin']?.value;
-                                          var amount = int.parse(_formKey
-                                              .currentState
-                                              ?.fields['amount']
-                                              ?.value);
-                                          var noOfSavers = int.parse(_formKey
-                                              .currentState
-                                              ?.fields['noOfSavers']
-                                              ?.value);
-                                          var startDate = _formKey.currentState
-                                              ?.fields['startDate']?.value;
-                                          if (pin == null) {
-                                            groupsBloc?.add(CreateGroupEvent(
-                                              // image: image!,
-                                              status: status,
-                                              groupName: groupName!,
-                                              amount: amount,
-                                              noOfSavers: noOfSavers,
-                                              startDate: startDate,
-                                              memberUserId: currentUser!.id!,
-                                              inviteeUserId: currentUser!.id!,
-                                              memberEmail: currentUser!.email,
-                                              memberImageUrl:
-                                                  currentUser!.imageUrl,
-
-                                              memberName:
-                                                  '${currentUser!.lastName} ${currentUser!.firstName}',
-                                            ));
-                                          } else {
-                                            groupsBloc?.add(CreateGroupEvent(
-                                              // image: image!,
-                                              status: status,
-                                              groupName: groupName!,
-                                              amount: amount,
-                                              noOfSavers: noOfSavers,
-                                              startDate: startDate,
-                                              pin: pin,
-                                              memberUserId: currentUser!.id!,
-                                              inviteeUserId: currentUser!.id!,
-                                              memberEmail: currentUser!.email,
-                                              memberImageUrl:
-                                                  currentUser!.imageUrl,
-                                              memberName:
-                                                  '${currentUser!.lastName} ${currentUser!.firstName}',
-                                            ));
-                                          }
-                                        }
-                                      },
-                                      child: const ColouredTextBox(
-                                          title: 'SUBMIT')));
-
-                              // }
-                              // print('nothing $state');
-                              // return Container();
-                              // print('buildernothing $state');
-                            },
+                        FormHeader('Fee'),
+                        verticalSpacer(5),
+                        CustomTextField(
+                          name: 'amount',
+                          // hint: 'Enter Set Amount ......',
+                          hint: '',
+                          isdigit: true,
+                          validator: FormBuilderValidators.compose(
+                            [
+                              FormBuilderValidators.required(
+                                  errorText: 'This is a required field'),
+                              FormBuilderValidators.integer(
+                                  errorText: 'A valid pin should be in digit '),
+                              // FormBuilderValidators.minLength(3,
+                              //     errorText:
+                              //         'A valid pin should be greater than 3 characters '),
+                            ],
                           ),
                         ),
+                        //  SmallSingleLeftTextBox(title: 'N100,000'),
+                        verticalSpacer(15),
+                        FormHeader('Max'),
+                        verticalSpacer(5),
+                        CustomTextField(
+                          name: 'noOfSavers',
+                          // hint: 'Enter Savers No ......',
+                          hint: '',
+                          isdigit: true,
+                          validator: FormBuilderValidators.compose(
+                            [
+                              FormBuilderValidators.required(
+                                  errorText: 'This is a required field'),
+                              FormBuilderValidators.integer(
+                                  errorText:
+                                      'A valid No.Of Savers be in digit '),
+                              FormBuilderValidators.max(12,
+                                  errorText:
+                                      'A valid NO. Of Savers should be less than 12'),
+                              FormBuilderValidators.min(1,
+                                  errorText:
+                                      'A valid NO. Of Savers should be greater than 1'),
+                            ],
+                          ),
+                        ),
+                        // const SmallSingleLeftTextBox(title: '12'),
+                        verticalSpacer(15),
+                        FormHeader('Start'),
+                        verticalSpacer(5),
+                        CustomDateField(
+                          name: 'startDate',
+                          // hint: 'Click to select Start Date ......',
+                          hint: '',
+                          validator: FormBuilderValidators.compose(
+                            [
+                              FormBuilderValidators.required(
+                                  errorText: 'This is a required field'),
+                            ],
+                          ),
+                        ),
+                        verticalSpacer(15),
+                        FormHeader('Payout'),
+                        verticalSpacer(5),
+                        CustomDateField(
+                          name: 'payoutDate',
+                          // hint: 'Click to select Start Date ......',
+                          hint: '',
+                          validator: FormBuilderValidators.compose(
+                            [
+                              FormBuilderValidators.required(
+                                  errorText: 'This is a required field'),
+                            ],
+                          ),
+                        ),
+                        verticalSpacer(10),
+
+                        Column(
+                          children: [
+                            SizedBox(
+                              width: double.infinity,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Radio(
+                                          // title: const Text('Off'),
+                                          value: 'off',
+                                          activeColor: kBlueColor,
+                                          groupValue: _radioValue,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              _radioValue = value!;
+                                              _showContainer = false;
+                                            });
+                                          },
+                                        ),
+                                        FormHeader('Public'),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Radio(
+                                          // title: const Text('On'),
+                                          value: 'on',
+                                          activeColor: kBlueColor,
+                                          groupValue: _radioValue,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              _radioValue = value!;
+                                              _showContainer = true;
+                                            });
+                                          },
+                                        ),
+                                        FormHeader('Private'),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        _showContainer == true
+                            ? Row(
+                                children: [
+                                  FormHeader('Pin'),
+                                  horizontalSpacer(10),
+                                  Expanded(
+                                    child: CustomTextField(
+                                      name: 'pin',
+                                      hint: '',
+                                      isdigit: true,
+                                      validator: FormBuilderValidators.compose(
+                                        [
+                                          FormBuilderValidators.required(
+                                              errorText:
+                                                  'This is a required field'),
+                                          FormBuilderValidators.integer(
+                                              errorText:
+                                                  'A valid pin be in digit '),
+                                          FormBuilderValidators.minLength(3,
+                                              errorText:
+                                                  'A valid pin should be greater than 3 characters '),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : verticalSpacer(10),
+
+                        // const SmallSingleLeftTextBox(title: '01 - 02 - 2023'),
+                        verticalSpacer(40),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+                  Column(
+                    children: [
+                      // SizedBox(
+                      //     width: double.infinity,
+                      //     child: GestureDetector(
+                      //         onTap: () {
+                      //           FocusScope.of(context).unfocus();
+                      //           var validate = _formKey.currentState?.validate();
+
+                      //           if (validate == true) {
+                      //             _formKey.currentState?.save();
+                      //             var status =
+                      //                 value == true ? 'private' : 'public';
+                      //             var groupName = _formKey
+                      //                 .currentState?.fields['groupName']?.value
+                      //                 .toString()
+                      //                 .trim();
+
+                      //             var password = _formKey
+                      //                 .currentState?.fields['password']?.value
+                      //                 .toString()
+                      //                 .trim();
+                      //             var pin =
+                      //                 _formKey.currentState?.fields['pin']?.value;
+                      //             var amount = int.parse(_formKey
+                      //                 .currentState?.fields['amount']?.value);
+                      //             var noOfSavers = int.parse(_formKey
+                      //                 .currentState?.fields['noOfSavers']?.value);
+                      //             var startDate = _formKey
+                      //                 .currentState?.fields['startDate']?.value;
+
+                      //             groupsBloc?.add(CreateGroupEvent(
+                      //                 status: status,
+                      //                 groupName: groupName!,
+                      //                 amount: amount,
+                      //                 noOfSavers: noOfSavers,
+                      //                 startDate: startDate));
+
+                      //           }
+
+                      //         },
+                      //         child: const ColouredTextBox(title: 'CONFIRM'))),
+
+                      BlocListener<GroupsBloc, GroupsState>(
+                        listener: (context, state) {
+                          if (state is CreateGroupSuccessfull) {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (builder) => const MyGroupsScreen()),
+                            );
+                          }
+                        },
+                        child: BlocBuilder<GroupsBloc, GroupsState>(
+                          builder: (context, state) {
+                            if (state is CreateGroupInProgress) {
+                              return const SizedBox(
+                                  width: double.infinity,
+                                  child: ColouredLoadingBox());
+                            } else if (state is CreateGroupFailed) {
+                              Future.delayed(Duration.zero, () {
+                                ScaffoldMessenger.of(context)
+                                  ..removeCurrentSnackBar()
+                                  ..showSnackBar(SnackBar(
+                                    content: Text(state.message),
+                                    backgroundColor: Colors.red,
+                                  ));
+                              });
+                            }
+
+                            return SizedBox(
+                                width: double.infinity,
+                                child: GestureDetector(
+                                    onTap: () {
+                                      FocusScope.of(context).unfocus();
+                                      var validate =
+                                          _formKey.currentState?.validate();
+                                      // if (image == null) {
+                                      if (false) {
+                                        validate = false;
+                                        Future.delayed(Duration.zero, () {
+                                          ScaffoldMessenger.of(context)
+                                            ..removeCurrentSnackBar()
+                                            ..showSnackBar(const SnackBar(
+                                              content: Text(
+                                                  'Profile Image Field Cannot Be Empty'),
+                                              backgroundColor: Colors.red,
+                                            ));
+                                        });
+                                      }
+
+                                      if (validate == true) {
+                                        _formKey.currentState?.save();
+                                        var status = _showContainer == true
+                                            ? 'private'
+                                            : 'public';
+                                        var groupName = _formKey.currentState
+                                            ?.fields['groupName']?.value
+                                            .toString()
+                                            .trim();
+
+                                        var password = _formKey.currentState
+                                            ?.fields['password']?.value
+                                            .toString()
+                                            .trim();
+                                        var pin = _formKey
+                                            .currentState?.fields['pin']?.value;
+                                        var amount = int.parse(_formKey
+                                            .currentState
+                                            ?.fields['amount']
+                                            ?.value);
+                                        var noOfSavers = int.parse(_formKey
+                                            .currentState
+                                            ?.fields['noOfSavers']
+                                            ?.value);
+                                        var startDate = _formKey.currentState
+                                            ?.fields['startDate']?.value;
+                                        if (pin == null) {
+                                          groupsBloc?.add(CreateGroupEvent(
+                                            // image: image!,
+                                            status: status,
+                                            groupName: groupName!,
+                                            amount: amount,
+                                            noOfSavers: noOfSavers,
+                                            startDate: startDate,
+                                            memberUserId: currentUser!.id!,
+                                            inviteeUserId: currentUser!.id!,
+                                            memberEmail: currentUser!.email,
+                                            memberImageUrl:
+                                                currentUser!.imageUrl,
+
+                                            memberName:
+                                                '${currentUser!.lastName} ${currentUser!.firstName}',
+                                          ));
+                                        } else {
+                                          groupsBloc?.add(CreateGroupEvent(
+                                            // image: image!,
+                                            status: status,
+                                            groupName: groupName!,
+                                            amount: amount,
+                                            noOfSavers: noOfSavers,
+                                            startDate: startDate,
+                                            pin: pin,
+                                            memberUserId: currentUser!.id!,
+                                            inviteeUserId: currentUser!.id!,
+                                            memberEmail: currentUser!.email,
+                                            memberImageUrl:
+                                                currentUser!.imageUrl,
+                                            memberName:
+                                                '${currentUser!.lastName} ${currentUser!.firstName}',
+                                          ));
+                                        }
+                                      }
+                                    },
+                                    child: const ColouredTextBox(
+                                        title: 'SUBMIT')));
+
+                            // }
+                            // print('nothing $state');
+                            // return Container();
+                            // print('buildernothing $state');
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

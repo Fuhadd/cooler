@@ -134,6 +134,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         // ),
         // bottomNavigationBar: buildBottomNavigationBar(_selectedIndex),
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           iconTheme: const IconThemeData(color: kMainColor),
           backgroundColor: background,
           centerTitle: true,

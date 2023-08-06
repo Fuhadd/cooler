@@ -496,7 +496,7 @@ class _CreateScreenState extends State<CreateScreen> {
                             margin: const EdgeInsets.symmetric(horizontal: 60),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: kMainColor,
+                                backgroundColor: kBlueColor,
                                 padding:
                                     const EdgeInsets.fromLTRB(80, 0, 80, 0),
                                 shape: RoundedRectangleBorder(
@@ -511,7 +511,7 @@ class _CreateScreenState extends State<CreateScreen> {
                                     decoration: const BoxDecoration(
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(100)),
-                                      color: kMainColor,
+                                      color: kBlueColor,
                                     ),
                                     child: loading,
                                   ),
@@ -532,7 +532,7 @@ class _CreateScreenState extends State<CreateScreen> {
                         }
 
                         return GestureButtonWidget(
-                            buttonColor: kMainColor,
+                            buttonColor: kBlueColor,
                             text: 'Sign Up',
                             textColor: Colors.white,
                             onPress: () {

@@ -1970,18 +1970,18 @@ class ColumnTextBox extends StatelessWidget {
           // width: double.infinity,
           width: 200,
           decoration: BoxDecoration(
-            color: Colors.white,
+            // color: Colors.transparent,
             borderRadius: BorderRadius.circular(5),
-            boxShadow: [
-              BoxShadow(
-                  spreadRadius: 1,
-                  blurRadius: 1,
-                  offset: const Offset(0, 1),
-                  color: kShadowColor),
-            ],
+            // boxShadow: [
+            //   BoxShadow(
+            //       spreadRadius: 1,
+            //       blurRadius: 1,
+            //       offset: const Offset(0, 1),
+            //       color: kShadowColor),
+            // ],
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 14),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -1989,7 +1989,7 @@ class ColumnTextBox extends StatelessWidget {
                 Text(
                   text2,
                   style: const TextStyle(
-                      fontSize: 23,
+                      fontSize: 40,
                       color: kMainColor,
                       fontWeight: FontWeight.w800),
                 ),

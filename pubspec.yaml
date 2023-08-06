@@ -41,6 +41,7 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^8.1.1
   flutter_form_builder: ^7.7.0
+  flutter_launcher_icons: ^0.13.1
   flutter_native_splash: ^2.2.17
   flutter_spinkit: ^5.1.0
   font_awesome_flutter: ^10.3.0
@@ -58,6 +59,16 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/cooler_icon.png"
+  adaptive_icon_foreground: "assets/images/cooler_icon.png"
+  background_color: "#FF130C66"
+  adaptive_icon_background: "#FF130C66"
+  remove_alpha_ios: true
+  min_sdk_android: 21 # android min sdk min:16, default 21
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

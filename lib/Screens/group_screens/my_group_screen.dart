@@ -138,6 +138,7 @@ class _MyGroupsScreenState extends State<MyGroupsScreen> {
       child: Scaffold(
         // bottomNavigationBar: buildBottomNavigationBar(_selectedIndex),
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           iconTheme: const IconThemeData(color: kMainColor),
           // leading: IconButton(
           //   icon: const Icon(Icons.arrow_back, color: kMainColor),
@@ -315,7 +316,7 @@ class MyGroupScreenBody extends StatelessWidget {
                                   builder: (context) => EmployerGroupsScreen(
                                       currentUser: currentUser)));
                             },
-                            child: const ColouredTextBox(title: 'JOIN'))),
+                            child: const ColouredTextBox(title: 'Join'))),
                     // horizontalSpacer(10),
                     // Expanded(
                     //     child: GestureDetector(
@@ -337,7 +338,7 @@ class MyGroupScreenBody extends StatelessWidget {
                       // Navigator.of(context)
                       //     .pushNamed(CreateGroupScreen.routeName);
                     },
-                    child: const ColouredOutlineTextBox(title: 'CREATE')),
+                    child: const ColouredOutlineTextBox(title: 'Create')),
                 // verticalSpacer(20),
               ],
             ),

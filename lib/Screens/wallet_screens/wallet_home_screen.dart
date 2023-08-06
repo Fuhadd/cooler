@@ -81,6 +81,7 @@ class _WalletHomeScreenState extends State<WalletHomeScreen> {
         // bottomNavigationBar: buildBottomNavigationBar(_selectedIndex),
         appBar: AppBar(
           elevation: 0,
+          automaticallyImplyLeading: false,
           iconTheme: const IconThemeData(color: kMainColor),
           backgroundColor: background,
           centerTitle: true,
@@ -148,28 +149,50 @@ class _WalletHomeScreenState extends State<WalletHomeScreen> {
                 ),
                 verticalSpacer(20),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
                   child: Column(
                     children: [
-                      SizedBox(
-                          child: GestureDetector(
-                              onTap: () {
-                                Navigator.of(context)
-                                    .pushNamed(WalletTransferScreen.routeName);
-                              },
-                              child: const ColouredTextBox(title: 'Transfer'))),
-                      verticalSpacer(10),
-                      SizedBox(
-                          child: GestureDetector(
-                              onTap: () {
-                                Navigator.of(context)
-                                    .pushNamed(WalletWithdrawScreen.routeName);
-                              },
-                              child: const ColouredOutlineTextBox(
-                                  title: 'Withdraw'))),
+                      // GestureDetector(
+                      //     onTap: () async {
+                      //       Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      //           builder: ((context) =>
+                      //               MyInviteScreen(currentUser: currentUser))));
+                      //     },
+                      //     child: const ColouredTextBox(title: 'INVITES')),
+
+                      Row(
+                        children: [
+                          Expanded(
+                              child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).pushNamed(
+                                        WalletTransferScreen.routeName);
+                                  },
+                                  child: const ColouredTextBox(
+                                      title: 'Transfer'))),
+                          // horizontalSpacer(10),
+                          // Expanded(
+                          //     child: GestureDetector(
+                          //         onTap: () {
+                          //           Navigator.of(context)
+                          //               .pushNamed(CreateGroupScreen.routeName);
+                          //         },
+                          //         child: const ColouredTextBox(title: 'CREATE'))),
+                        ],
+                      ),
+
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.of(context)
+                                .pushNamed(WalletWithdrawScreen.routeName);
+                          },
+                          child:
+                              const ColouredOutlineTextBox(title: 'Withdraw'))
+                      // verticalSpacer(20),
                     ],
                   ),
                 ),
+                // verticalSpacer(20),
               ],
             ),
           ),

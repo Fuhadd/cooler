@@ -156,84 +156,84 @@ class _WalletWithdrawScreenState extends ConsumerState<WalletWithdrawScreen> {
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
     final menuIndex = ref.watch(indexProvider);
-    return SafeArea(
-      child: Scaffold(
-        bottomNavigationBar: buildBottomNavigationBar(menuIndex),
-        // bottomNavigationBar: buildBottomNavigationBar(_selectedIndex),
-        appBar: AppBar(
-          elevation: 0,
-          iconTheme: const IconThemeData(color: kMainColor),
-          backgroundColor: background,
-          centerTitle: true,
-          title: const Text(
-            'Wallet',
-            style: TextStyle(
-                fontSize: 21, color: kMainColor, fontWeight: FontWeight.bold),
-          ),
+    return Scaffold(
+      bottomNavigationBar: buildBottomNavigationBar(menuIndex),
+      // bottomNavigationBar: buildBottomNavigationBar(_selectedIndex),
+      appBar: AppBar(
+        elevation: 0,
+        iconTheme: const IconThemeData(color: kMainColor),
+        backgroundColor: background,
+        centerTitle: true,
+        title: const Text(
+          'Wallet',
+          style: TextStyle(
+              fontSize: 21, color: kMainColor, fontWeight: FontWeight.bold),
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 20, bottom: 30),
-            child: Column(
-              children: [
-                Container(
-                  // height: 75,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: blueBackground.withOpacity(0.08),
-                  ),
-                  child: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Center(
-                          child: ColumnTextBox(
-                        text1: 'Balance',
-                        text2: '\$200',
-                      ))),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 20, bottom: 30),
+          child: Column(
+            children: [
+              Container(
+                // height: 75,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: blueBackground.withOpacity(0.08),
                 ),
-                verticalSpacer(40),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                  child: Column(
-                    children: [
-                      Align(
-                          alignment: Alignment.centerLeft,
-                          child: FormHeader('Amount')),
-                      verticalSpacer(10),
-                      CustomTextField(
-                        name: 'amount',
-                        hint: 'Enter Amount ......',
-                        isdigit: true,
-                      ),
-                      // const SmallSingleLeftTextBox(title: 'N10,000'),
-                      verticalSpacer(15),
-                      // const PaymentBoxDoubleTextBox(
-                      //     imageUrl: 'assets/images/GTBank_logo.png',
-                      //     title: 'GTB'),
-                      verticalSpacer(15),
-                      const PaymentBoxDoubleTextBox(
-                          imageUrl: 'assets/images/chase_logo.png',
-                          title: 'CHASE'),
-                      // verticalSpacer(15),
-                    ],
-                  ),
+                child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Center(
+                        child: ColumnTextBox(
+                      text1: 'Balance',
+                      text2: '\$200',
+                    ))),
+              ),
+              verticalSpacer(40),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: Column(
+                  children: [
+                    Align(
+                        alignment: Alignment.centerLeft,
+                        child: FormHeader('Amount')),
+                    verticalSpacer(10),
+                    CustomTextField(
+                      name: 'amount',
+                      hint: 'Enter Amount ......',
+                      isdigit: true,
+                    ),
+                    // const SmallSingleLeftTextBox(title: 'N10,000'),
+                    verticalSpacer(15),
+                    // const PaymentBoxDoubleTextBox(
+                    //     imageUrl: 'assets/images/GTBank_logo.png',
+                    //     title: 'GTB'),
+                    verticalSpacer(15),
+                    const PaymentBoxDoubleTextBox(
+                        imageUrl: 'assets/images/chase_logo.png',
+                        title: 'CHASE'),
+                    // verticalSpacer(15),
+                  ],
                 ),
-                verticalSpacer(35),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                          child: GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pushReplacementNamed(
-                                    WalletHomeScreen.routeName);
-                              },
-                              child: const ColouredTextBox(title: 'Withdraw'))),
-                    ],
-                  ),
+              ),
+              verticalSpacer(35),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                child: Column(
+                  children: [
+                    SizedBox(
+                        child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pop();
+
+                              // Navigator.of(context).pushReplacementNamed(
+                              //     WalletHomeScreen.routeName);
+                            },
+                            child: const ColouredTextBox(title: 'Withdraw'))),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

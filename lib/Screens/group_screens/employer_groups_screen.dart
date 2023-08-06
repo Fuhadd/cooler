@@ -219,29 +219,27 @@ class _EmployerGroupsScreenState extends ConsumerState<EmployerGroupsScreen> {
       const WalletHomeScreen(),
       const SettingsScreen(),
     ];
-    return SafeArea(
-      child: Scaffold(
-        bottomNavigationBar: buildBottomNavigationBar(menuIndex),
+    return Scaffold(
+      bottomNavigationBar: buildBottomNavigationBar(menuIndex),
+      backgroundColor: background,
+      // bottomNavigationBar: buildBottomNavigationBar(_selectedIndex),
+      appBar: AppBar(
+        elevation: 0,
+        iconTheme: const IconThemeData(color: kMainColor),
+        // leading: IconButton(
+        //   icon: const Icon(Icons.arrow_back, color: kMainColor),
+        //   onPressed: () => Navigator.of(context)
+        //       .pushReplacementNamed(WelcomeScreen.routeName),
+        // ),
         backgroundColor: background,
-        // bottomNavigationBar: buildBottomNavigationBar(_selectedIndex),
-        appBar: AppBar(
-          elevation: 0,
-          iconTheme: const IconThemeData(color: kMainColor),
-          // leading: IconButton(
-          //   icon: const Icon(Icons.arrow_back, color: kMainColor),
-          //   onPressed: () => Navigator.of(context)
-          //       .pushReplacementNamed(WelcomeScreen.routeName),
-          // ),
-          backgroundColor: background,
-          centerTitle: true,
-          title: const Text(
-            'Join Coolers',
-            style: TextStyle(
-                fontSize: 21, color: kMainColor, fontWeight: FontWeight.bold),
-          ),
+        centerTitle: true,
+        title: const Text(
+          'Join Coolers',
+          style: TextStyle(
+              fontSize: 21, color: kMainColor, fontWeight: FontWeight.bold),
         ),
-        body: employerGroupStreamScreen(),
       ),
+      body: employerGroupStreamScreen(),
     );
   }
 }
@@ -334,7 +332,7 @@ class EmployerGroupScreenBody extends StatelessWidget {
                                   padding: const EdgeInsets.only(top: 10.0),
                                   child: GestureDetector(
                                     onTap: () {
-                                      Navigator.pushReplacement(
+                                      Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (builder) =>
