@@ -147,7 +147,8 @@ class FirestoreRepository {
   Future<Stream<QuerySnapshot>> getEmployerGroups(int employerNumber) async {
     String? uid = firebaseAuth.currentUser?.uid.toString();
     return employerFirebaseFirestore
-        .where("employerNumber", whereIn: [employerNumber, 0]).snapshots();
+        // .where("employerNumber", whereIn: [employerNumber, 0]).snapshots();
+        .where("employerNumber", whereIn: [employerNumber]).snapshots();
     // return groupFirebaseFirestore
     //     .where("status", isEqualTo: 'public')
     //     .orderBy("startDate")

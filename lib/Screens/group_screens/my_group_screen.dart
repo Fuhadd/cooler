@@ -328,18 +328,18 @@ class MyGroupScreenBody extends StatelessWidget {
                   ],
                 ),
 
-                GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const CreateGroupScreen()),
-                      );
-                      // Navigator.of(context)
-                      //     .pushNamed(CreateGroupScreen.routeName);
-                    },
-                    child: const ColouredOutlineTextBox(title: 'Create')),
-                // verticalSpacer(20),
+                // GestureDetector(
+                //     onTap: () {
+                //       Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //             builder: (context) => const CreateGroupScreen()),
+                //       );
+                //       // Navigator.of(context)
+                //       //     .pushNamed(CreateGroupScreen.routeName);
+                //     },
+                //     child: const ColouredOutlineTextBox(title: 'Create')),
+                // // verticalSpacer(20),
               ],
             ),
           ),

@@ -13,7 +13,6 @@ import 'Helpers/theme.dart';
 import 'Repositories/firebase_storage_repository.dart';
 import 'Repositories/firestore_repository.dart';
 import 'Repositories/user_repository.dart';
-import 'Screens/auth_screens/forgot_password_screen.dart';
 import 'Screens/auth_screens/login_screen.dart';
 import 'Screens/group_screens/confirmation_screen.dart';
 import 'Screens/group_screens/contribute_screen.dart';
@@ -101,8 +100,8 @@ class MyApp extends StatelessWidget {
           // home: const DashboardScreen(),
           routes: {
             // HomeScreen.routeName: (context) => const HomeScreen(),
-            ForgotPasswordScreen.routeName: (context) =>
-                const ForgotPasswordScreen(),
+            // ForgotPasswordScreen.routeName: (context) =>
+            //     const ForgotPasswordScreen(),
             LoginScreen.routeName: (context) => const LoginScreen(),
             WelcomeScreen.routeName: (context) => const WelcomeScreen(),
             ConfirmationScreen.routeName: (context) =>

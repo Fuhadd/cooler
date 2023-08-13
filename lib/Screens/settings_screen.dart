@@ -175,22 +175,31 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         child: Card(
                           color: kBlueColor,
                           margin: const EdgeInsets.symmetric(vertical: 20),
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Row(
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 8.0),
-                                  child: SizedBox(
-                                      height: 20,
-                                      width: 20,
-                                      child: CircularProgressIndicator(
-                                        color: Colors.black,
-                                      )),
-                                ),
-                                horizontalSpacer(20),
-                                const Text('Update Profile Picture')
-                              ],
+                          child: SizedBox(
+                            height: 60,
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Row(
+                                children: [
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 8.0),
+                                    child: SizedBox(
+                                        height: 20,
+                                        width: 20,
+                                        child: CircularProgressIndicator(
+                                          color: Colors.black,
+                                        )),
+                                  ),
+                                  horizontalSpacer(20),
+                                  const Text(
+                                    'Update Profile Picture',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -214,14 +223,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: Card(
                         color: kBlueColor,
                         margin: const EdgeInsets.symmetric(vertical: 20),
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Row(
-                            children: [
-                              const Icon(Icons.mode_edit),
-                              horizontalSpacer(20),
-                              const Text('Update Profile Picture')
-                            ],
+                        child: SizedBox(
+                          height: 60,
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Row(
+                              children: const [
+                                // const Icon(Icons.mode_edit),
+                                // horizontalSpacer(20),
+                                Text(
+                                  'Update Profile Picture',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -233,38 +250,58 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: Card(
                     color: kBlueColor,
                     margin: const EdgeInsets.symmetric(vertical: 20),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Row(
-                        children: [
-                          const Icon(Icons.mode_edit),
-                          horizontalSpacer(20),
-                          const Text('Update Payout Link')
-                        ],
+                    child: SizedBox(
+                      height: 60,
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Row(
+                          children: const [
+                            Text(
+                              'Update Payout Link',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.w500),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushReplacementNamed(
-                        context, ForgotPasswordScreen.routeName);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ForgotPasswordScreen(
+                                  canPopScreen: true,
+                                )));
                   },
                   child: Card(
                     color: kBlueColor,
                     margin: const EdgeInsets.symmetric(vertical: 20),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Row(
-                        children: [
-                          const Icon(Icons.mode_edit),
-                          horizontalSpacer(20),
-                          const Text('Change/Reset Password')
-                        ],
+                    child: SizedBox(
+                      height: 60,
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Row(
+                          children: const [
+                            Text(
+                              'Change/Reset Password',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.w500),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
+                // GestureDetector(
+                //     onTap: () {
+                //       // Navigator.of(context).pushNamed(
+                //       //     WalletTransferScreen.routeName);
+                //     },
+                //     child: const ColouredTextBox(title: 'Transfer')),
                 GestureDetector(
                   onTap: () {
                     UserRepository().logOut();
@@ -277,14 +314,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: Card(
                     color: kBlueColor,
                     margin: const EdgeInsets.symmetric(vertical: 20),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Row(
-                        children: [
-                          const Icon(Icons.mode_edit),
-                          horizontalSpacer(20),
-                          const Text('LOGOUT')
-                        ],
+                    child: SizedBox(
+                      height: 60,
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Row(
+                          children: const [
+                            Text(
+                              'Logout',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.w500),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),

@@ -308,6 +308,9 @@ class _CreateScreenState extends State<CreateScreen> {
                       controller: _employerNumberController,
                       cursorColor: kMainColor,
                       keyboardType: TextInputType.number,
+                      validator: (input) => input!.trim().isEmpty
+                          ? 'Emplyer number is a required field'
+                          : null,
                       decoration: const InputDecoration(
                         labelStyle:
                             TextStyle(color: kTextColor, fontSize: 20.0),
@@ -557,9 +560,9 @@ class _CreateScreenState extends State<CreateScreen> {
                                   _passwordController.text ==
                                       _confirmPassController.text) {
                                 FocusScope.of(context).unfocus();
-                                if (_employerNumberController.text.isEmpty) {
-                                  _employerNumberController.text = "0";
-                                }
+                                // if (_employerNumberController.text.isEmpty) {
+                                //   _employerNumberController.text = "0";
+                                // }
                                 signupBloc?.add(
                                   SignUpButtonPressed(
                                     image: image!,

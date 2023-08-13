@@ -2129,3 +2129,45 @@ class ColumnVeryLargeTextBox extends StatelessWidget {
     );
   }
 }
+
+class ColouredSettingsBox extends StatelessWidget {
+  const ColouredSettingsBox({
+    required this.title,
+    Key? key,
+  }) : super(key: key);
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      // elevation: 5,
+      child: Container(
+        height: 60,
+        // width: double.infinity,
+        decoration: BoxDecoration(
+          color: kBlueColor,
+          borderRadius: BorderRadius.circular(5),
+          boxShadow: [
+            BoxShadow(
+                spreadRadius: 1,
+                blurRadius: 1,
+                offset: const Offset(0, 1),
+                color: kShadowColor),
+          ],
+          // border: Border.all(color: kBoxBackground, width: 0.8)
+        ),
+        child: Row(
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                  fontSize: 18,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w500),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

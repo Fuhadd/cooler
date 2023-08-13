@@ -26,16 +26,24 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       SignUpButtonPressed event, Emitter<SignupState> emit) async {
     try {
       emit(SignupInProgress());
-      if (event.employerNumber != 0) {
-        var employee = await firestoreRepository
-            .getEmployerFromNumber(event.employerNumber);
-        if (employee == null) {
-          emit(SignupFailed(
-            'Employer Number is not valid, Contact your Organization',
-          ));
-          return;
-        }
+      var employee =
+          await firestoreRepository.getEmployerFromNumber(event.employerNumber);
+      if (employee == null) {
+        emit(SignupFailed(
+          'Employer Number is not valid, Contact your Organization',
+        ));
+        return;
       }
+      // if (event.employerNumber != 0) {
+      //   var employee = await firestoreRepository
+      //       .getEmployerFromNumber(event.employerNumber);
+      //   if (employee == null) {
+      //     emit(SignupFailed(
+      //       'Employer Number is not valid, Contact your Organization',
+      //     ));
+      //     return;
+      //   }
+      // }
 
       User? user =
           await userRepository.createUserWithEmail(event.email, event.password);

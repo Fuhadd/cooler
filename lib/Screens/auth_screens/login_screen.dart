@@ -1,4 +1,5 @@
 import 'package:cooler/Blocs/login_bloc/login_bloc.dart';
+import 'package:cooler/Screens/auth_screens/forgot_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -124,6 +125,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: TextStyle(fontSize: 14, color: Colors.black),
                     ),
                     onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ForgotPasswordScreen(
+                                    canPopScreen: true,
+                                  )));
                       // Navigator.push(
                       //     context,
                       //     MaterialPageRoute(
@@ -148,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         margin: const EdgeInsets.symmetric(horizontal: 60),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
+                            backgroundColor: kBlueColor,
                             //padding: EdgeInsets.fromLTRB(80, 0, 80, 0),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(100),

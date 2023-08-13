@@ -1,3 +1,4 @@
+import 'package:cooler/Helpers/constants.dart';
 import 'package:cooler/Screens/auth_screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +9,9 @@ import '../../Helpers/colors.dart';
 import '../../Widgets/gesture_detector_widget.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
-  static const routeName = '/forgot_pass';
-  const ForgotPasswordScreen({super.key});
+  final bool canPopScreen;
+  // static const routeName = '/forgot_pass';
+  const ForgotPasswordScreen({this.canPopScreen = false, super.key});
 
   @override
   _ForgotPasswordScreenState createState() => _ForgotPasswordScreenState();
@@ -46,17 +48,31 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
-        backgroundColor: kBlueColor,
+        // backgroundColor: kBlueColor,
         body: SingleChildScrollView(
           child: AutofillGroup(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(32.0, 30.0, 0.0, 100.0),
-                  child: Text(
-                    'Reset Password.',
-                    style: TextStyle(fontSize: 30.0, color: Colors.white),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(32.0, 40.0, 0.0, 70.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Reset Password.',
+                        style: TextStyle(
+                          fontSize: 30.0,
+                        ),
+                      ),
+                      verticalSpacer(20),
+                      const Text(
+                        'A Password reset link will be sent to your mail',
+                        style: TextStyle(
+                          fontSize: 12.0,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Container(
@@ -64,20 +80,22 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 32, vertical: 8.0),
                   child: TextFormField(
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.black),
                     controller: _emailController,
                     validator: (input) =>
                         !input!.contains('@') ? 'Enter correct email' : null,
                     onSaved: (input) => email = input!,
                     autofillHints: const [AutofillHints.email],
-                    cursorColor: Colors.white,
+                    cursorColor: Colors.black,
                     decoration: InputDecoration(
-                      labelStyle: const TextStyle(color: Colors.white),
+                      labelStyle: const TextStyle(color: Colors.black),
                       labelText: "Email",
                       enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey.shade500)),
+                          borderSide:
+                              BorderSide(color: Colors.black.withOpacity(0.3))),
                       focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey.shade500)),
+                          borderSide:
+                              BorderSide(color: Colors.black.withOpacity(0.3))),
                     ),
                   ),
                 ),
@@ -104,7 +122,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         margin: const EdgeInsets.symmetric(horizontal: 60),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
+                            backgroundColor: kBlueColor,
                             //padding: EdgeInsets.fromLTRB(80, 0, 80, 0),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(100),
@@ -118,7 +136,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                 decoration: const BoxDecoration(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(100)),
-                                  color: Colors.white,
+                                  color: kBlueColor,
                                 ),
                                 child: loading,
                               ),
@@ -152,9 +170,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     }
 
                     return GestureButtonWidget(
-                        buttonColor: Colors.white,
+                        buttonColor: kBlueColor,
                         text: 'Reset Password',
-                        textColor: const Color(0xFF2C6319),
+                        textColor: Colors.white,
                         onPress: () {
                           if (_formKey.currentState!.validate()) {
                             authBloc?.add(
@@ -166,19 +184,22 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         });
                   })),
                 ),
-                
                 const SizedBox(height: 30),
                 Container(
                   child: Center(
                     child: InkWell(
                       child: const Text(
                         'Cancel',
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                        style: TextStyle(fontSize: 18, color: Colors.black),
                       ),
                       onTap: () {
-                        FirebaseAuth.instance.signOut();
-                        Navigator.pushReplacementNamed(
-                            context, LoginScreen.routeName);
+                        if (widget.canPopScreen) {
+                          Navigator.pop(context);
+                        } else {
+                          FirebaseAuth.instance.signOut();
+                          Navigator.pushReplacementNamed(
+                              context, LoginScreen.routeName);
+                        }
                       },
                     ),
                   ),
