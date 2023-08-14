@@ -10,6 +10,7 @@ import '../../Helpers/colors.dart';
 import '../../Helpers/constants.dart';
 import '../Blocs/image_bloc/image_bloc.dart';
 import '../Repositories/user_repository.dart';
+import '../Widgets/texboxtbox_widgets.dart';
 import 'auth_screens/forgot_password_screen.dart';
 import 'auth_screens/login_screen.dart';
 import 'group_screens/my_group_screen.dart';
@@ -174,12 +175,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         },
                         child: Card(
                           color: kBlueColor,
-                          margin: const EdgeInsets.symmetric(vertical: 20),
+                          // margin: const EdgeInsets.symmetric(vertical: 20),
                           child: SizedBox(
                             height: 60,
                             child: Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   const Padding(
                                     padding:
@@ -188,14 +190,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         height: 20,
                                         width: 20,
                                         child: CircularProgressIndicator(
-                                          color: Colors.black,
+                                          color: Colors.white,
                                         )),
                                   ),
                                   horizontalSpacer(20),
-                                  const Text(
+                                  Text(
                                     'Update Profile Picture',
                                     style: TextStyle(
                                         fontSize: 18,
+                                        color: white,
                                         fontWeight: FontWeight.w500),
                                   )
                                 ],
@@ -217,120 +220,154 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     }
 
                     return GestureDetector(
-                      onTap: () {
-                        _showImageSourceOptions(imageBloc);
-                      },
-                      child: Card(
-                        color: kBlueColor,
-                        margin: const EdgeInsets.symmetric(vertical: 20),
-                        child: SizedBox(
-                          height: 60,
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Row(
-                              children: const [
-                                // const Icon(Icons.mode_edit),
-                                // horizontalSpacer(20),
-                                Text(
-                                  'Update Profile Picture',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
+                        onTap: () {
+                          _showImageSourceOptions(imageBloc);
+                        },
+                        child: const ColouredTextBox(
+                            title: 'Update Profile Picture')
+
+                        // Card(
+                        //   color: kBlueColor,
+                        //   margin: const EdgeInsets.symmetric(vertical: 20),
+                        //   child: SizedBox(
+                        //     height: 60,
+                        //     child: Padding(
+                        //       padding: const EdgeInsets.all(12.0),
+                        //       child: Row(
+                        //         children: [
+                        //           // const Icon(Icons.mode_edit),
+                        //           // horizontalSpacer(20),
+                        //           Text(
+                        //             'Update Profile Picture',
+                        //             style: TextStyle(
+                        //                 fontSize: 18,
+                        //                 color: white,
+                        //                 fontWeight: FontWeight.w500),
+                        //           )
+                        //         ],
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+                        );
                   })),
                 ),
+                verticalSpacer(20),
                 GestureDetector(
-                  onTap: () {},
-                  child: Card(
-                    color: kBlueColor,
-                    margin: const EdgeInsets.symmetric(vertical: 20),
-                    child: SizedBox(
-                      height: 60,
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Row(
-                          children: const [
-                            Text(
-                              'Update Payout Link',
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w500),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                    child: const ColouredTextBox(title: 'Update Payout Link')),
+
+                // GestureDetector(
+                //   onTap: () {},
+                //   child: Card(
+                //     color: kBlueColor,
+                //     margin: const EdgeInsets.symmetric(vertical: 20),
+                //     child: SizedBox(
+                //       height: 60,
+                //       child: Padding(
+                //         padding: const EdgeInsets.all(12.0),
+                //         child: Row(
+                //           children: const [
+                //             Text(
+                //               'Update Payout Link',
+                //               style: TextStyle(
+                //                   fontSize: 18, fontWeight: FontWeight.w500),
+                //             )
+                //           ],
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                verticalSpacer(20),
                 GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ForgotPasswordScreen(
-                                  canPopScreen: true,
-                                )));
-                  },
-                  child: Card(
-                    color: kBlueColor,
-                    margin: const EdgeInsets.symmetric(vertical: 20),
-                    child: SizedBox(
-                      height: 60,
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Row(
-                          children: const [
-                            Text(
-                              'Change/Reset Password',
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w500),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ForgotPasswordScreen(
+                                    canPopScreen: true,
+                                  )));
+                    },
+                    child:
+                        const ColouredTextBox(title: 'Change/Reset Password')),
+                // GestureDetector(
+                //   onTap: () {
+                //     Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //             builder: (context) => const ForgotPasswordScreen(
+                //                   canPopScreen: true,
+                //                 )));
+                //   },
+                //   child: Card(
+                //     color: kBlueColor,
+                //     margin: const EdgeInsets.symmetric(vertical: 20),
+                //     child: SizedBox(
+                //       height: 60,
+                //       child: Padding(
+                //         padding: const EdgeInsets.all(12.0),
+                //         child: Row(
+                //           children: const [
+                //             Text(
+                //               'Change/Reset Password',
+                //               style: TextStyle(
+                //                   fontSize: 18, fontWeight: FontWeight.w500),
+                //             )
+                //           ],
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 // GestureDetector(
                 //     onTap: () {
                 //       // Navigator.of(context).pushNamed(
                 //       //     WalletTransferScreen.routeName);
                 //     },
                 //     child: const ColouredTextBox(title: 'Transfer')),
+
+                verticalSpacer(20),
+
                 GestureDetector(
-                  onTap: () {
-                    UserRepository().logOut();
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => const LoginScreen(),
-                      ),
-                    );
-                  },
-                  child: Card(
-                    color: kBlueColor,
-                    margin: const EdgeInsets.symmetric(vertical: 20),
-                    child: SizedBox(
-                      height: 60,
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Row(
-                          children: const [
-                            Text(
-                              'Logout',
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w500),
-                            )
-                          ],
+                    onTap: () {
+                      UserRepository().logOut();
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
                         ),
-                      ),
-                    ),
-                  ),
-                ),
+                      );
+                    },
+                    child: const ColouredTextBox(title: 'Logout')),
+
+                // GestureDetector(
+                //   onTap: () {
+                //     UserRepository().logOut();
+                //     Navigator.of(context).pushReplacement(
+                //       MaterialPageRoute(
+                //         builder: (context) => const LoginScreen(),
+                //       ),
+                //     );
+                //   },
+                //   child: Card(
+                //     color: kBlueColor,
+                //     margin: const EdgeInsets.symmetric(vertical: 20),
+                //     child: SizedBox(
+                //       height: 60,
+                //       child: Padding(
+                //         padding: const EdgeInsets.all(12.0),
+                //         child: Row(
+                //           children: const [
+                //             Text(
+                //               'Logout',
+                //               style: TextStyle(
+                //                   fontSize: 18, fontWeight: FontWeight.w500),
+                //             )
+                //           ],
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),

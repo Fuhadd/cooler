@@ -431,9 +431,9 @@ class MyGroupScreenEmpty extends StatelessWidget {
             //   ],
             // )
           ),
-          verticalSpacer(40),
+          verticalSpacer(20),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50.0),
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
             child: Column(
               children: [
                 // GestureDetector(
@@ -464,14 +464,14 @@ class MyGroupScreenEmpty extends StatelessWidget {
                     //         child: const ColouredTextBox(title: 'CREATE'))),
                   ],
                 ),
-                verticalSpacer(10),
-                GestureDetector(
-                    onTap: () {
-                      Navigator.of(context)
-                          .pushNamed(CreateGroupScreen.routeName);
-                    },
-                    child: const ColouredOutlineTextBox(title: 'Create')),
-                verticalSpacer(20),
+                // verticalSpacer(10),
+                // GestureDetector(
+                //     onTap: () {
+                //       Navigator.of(context)
+                //           .pushNamed(CreateGroupScreen.routeName);
+                //     },
+                //     child: const ColouredOutlineTextBox(title: 'Create')),
+                // verticalSpacer(20),
               ],
             ),
           ),
